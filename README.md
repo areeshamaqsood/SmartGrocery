@@ -26,6 +26,9 @@ The similarity of the items being bought among all the users is calculated throu
 
 ## The Rsys.py contains the algorithm which is connnected with the firebase
 
+# Frontend 
+Our frontend is made on Flutter and is connected with the firebase database. The mobile application uses the android sdk.
+
 # Firebase and Firebase storage
 Firebase is used as a database for this project whereas FireStorage is used to upload audio
 files from the application to the server
