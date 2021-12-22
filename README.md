@@ -18,9 +18,9 @@ Fine tuned for Arabic language but can be used to identofy products in Urdu Lang
 
 This model is deployed on a Python Flask server which is connected with the Flutter application
 
-# Recommender ALgorithm
+# Recommender Algorithm
 
 
-# FireBase and Firebase storage
+# Firebase and Firebase storage
 Firebase is used as a database for this project whereas FireStorage is used to upload audio
 files from the application to the server
