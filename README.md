@@ -1,4 +1,4 @@
-# OnlineGroceryApplication
+# Online Grocery Application
 Natural Langauge and Machine learning based Grocery Application
 
 # SmartGrocery
