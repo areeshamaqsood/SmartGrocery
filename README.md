@@ -24,7 +24,7 @@ In particular "Item Based Collaborative Filtering" is being used. We explore the
 Matching each of the user’s purchased items to similar items, then combines those similar items into a recommendation list. 
 The similarity of the items being bought among all the users is calculated through the Pearson Correlation Coefficient, which is where the covariance is measured that how similar is this one item to the other and the results are normalised and are from -1 to +1.
 
-RSlol.png![image](https://user-images.githubusercontent.com/96544322/147161234-73635fb9-0057-4ac6-8365-0a2818405411.png)
+RS_Flow_Diagram.png![image](https://user-images.githubusercontent.com/96544322/147161493-ffdb15b3-8f0d-4904-9aa8-039b18142ef2.png)
 
 ## The Rsys.py contains the algorithm which is connnected with the firebase
 
