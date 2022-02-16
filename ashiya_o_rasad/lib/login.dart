@@ -18,8 +18,8 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  TextEditingController emailAddressController1;
-  TextEditingController emailAddressController2;
+  TextEditingController emailAddressController;
+  // TextEditingController emailAddressController2;
   TextEditingController passwordController;
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -27,8 +27,8 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   void initState() {
     super.initState();
-    emailAddressController1 = TextEditingController();
-    emailAddressController2 = TextEditingController();
+    emailAddressController = TextEditingController();
+    // emailAddressController2 = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
   }
@@ -116,7 +116,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                  controller: emailAddressController2,
+                                  controller: emailAddressController,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'Your Email',
@@ -197,11 +197,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       fontSize: 14.0,
                                       color: Color(0xFF95A1AC),
                                       fontWeight: FontWeight.w600,
-                                      //   FlutterFlowTheme.bodyText1.override(
-                                      // fontFamily: 'Lexend Deca',
-                                      // color: Color(0xFF95A1AC),
-                                      // fontSize: 14,
-                                      // fontWeight: FontWeight.normal,
                                     ),
                                     hintText: 'Enter your password here...',
                                     hintStyle: GoogleFonts.poppins(
@@ -209,13 +204,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       color: Color(0xFF95A1AC),
                                       fontWeight: FontWeight.w600,
                                     ),
-
-                                    //     FlutterFlowTheme.bodyText1.override(
-                                    //   fontFamily: 'Lexend Deca',
-                                    //   color: Color(0xFF95A1AC),
-                                    //   fontSize: 14,
-                                    //   fontWeight: FontWeight.normal,
-                                    // ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFDBE2E7),
@@ -277,7 +265,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   onPressed: () async {
                                     // final user = await createAccountWithEmail(
                                     //   context,
-                                    //   emailAddressController2.text,
+                                    //   emailAddressController.text,
                                     //   passwordController.text,
                                     // );
                                     // if (user == null) {

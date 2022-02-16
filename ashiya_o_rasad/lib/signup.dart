@@ -9,6 +9,8 @@ import '../Welcome.dart';
 import '../home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpWidget extends StatefulWidget {
   const SignUpWidget({Key key}) : super(key: key);
@@ -18,18 +20,22 @@ class SignUpWidget extends StatefulWidget {
 }
 
 class _SignUpWidgetState extends State<SignUpWidget> {
-  TextEditingController emailAddressController1;
-  TextEditingController emailAddressController2;
+  TextEditingController emailAddressController;
+  // TextEditingController emailAddressController2;
   TextEditingController passwordController;
+  TextEditingController NameController;
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('Users');
 
   @override
   void initState() {
     super.initState();
-    emailAddressController1 = TextEditingController();
-    emailAddressController2 = TextEditingController();
+    emailAddressController = TextEditingController();
+    // emailAddressController2 = TextEditingController();
     passwordController = TextEditingController();
+    NameController = TextEditingController();
     passwordVisibility = false;
   }
 
@@ -116,7 +122,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                  controller: emailAddressController1,
+                                  controller: NameController,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'Your Name',
@@ -178,7 +184,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                  controller: emailAddressController2,
+                                  controller: emailAddressController,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'Your Email',
@@ -339,7 +345,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   onPressed: () async {
                                     // final user = await createAccountWithEmail(
                                     //   context,
-                                    //   emailAddressController2.text,
+                                    //   emailAddressController.text,
                                     //   passwordController.text,
                                     // );
                                     // if (user == null) {
@@ -348,6 +354,27 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
                                     // await Navigator.pushAndRemoveUntil(
                                     //   context,
+                                    final String name1 = NameController.text;
+                                    final String pass1 =
+                                        passwordController.text;
+                                    final String email1 =
+                                        emailAddressController.text;
+
+                                    if (name1 != null &&
+                                        pass1 != null &&
+                                        email1 != null) {
+                                      // Persist a new product to Firestore
+                                      await users.add({
+                                        "email": email1,
+                                        "name": name1,
+                                        "password": pass1
+                                      });
+                                    }
+
+                                    NameController.text = '';
+                                    passwordController.text = '';
+                                    emailAddressController.text = '';
+
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => MainScreen(),
