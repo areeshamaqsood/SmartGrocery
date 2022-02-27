@@ -1,12 +1,14 @@
 // import '../flutter_flow/flutter_flow_theme.dart';
 // import '../flutter_flow/flutter_flow_util.dart';
 // import '../flutter_flow/flutter_flow_widgets.dart';
-import 'package:ashiya_o_rasad/account.dart';
+// import 'package:ashiya_o_rasad/account.dart';
 import 'package:ashiya_o_rasad/bottomnav.dart';
-
-import '../main.dart';
+import '../variables.dart';
+// import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+// import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AboutMeWidget extends StatefulWidget {
   const AboutMeWidget({Key key}) : super(key: key);
@@ -21,13 +23,16 @@ class _AboutMeWidgetState extends State<AboutMeWidget> {
   TextEditingController textController3;
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('Users');
+  // static int added;
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController(text: 'Shujaa Marwat');
-    textController2 = TextEditingController(text: 'i180432@nu.edu.pk');
-    textController3 = TextEditingController(text: 'ashiya');
+    textController1 = TextEditingController(text: Account.name1);
+    textController2 = TextEditingController(text: Account.email1);
+    textController3 = TextEditingController(text: Account.pass1);
     passwordVisibility = false;
   }
 
@@ -263,6 +268,21 @@ class _AboutMeWidgetState extends State<AboutMeWidget> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
+                      Account.name1 = textController1.text;
+                      Account.email1 = textController2.text;
+                      Account.pass1 = textController3.text;
+                      await users
+                          .doc('$Account.email1')
+                          .update(
+                            {
+                              'name': '${Account.name1}',
+                              'email': '${Account.email1}',
+                              'password': '${Account.pass1}'
+                            },
+                          )
+                          .then((value) => print("User Updated"))
+                          .catchError((error) =>
+                              print("Failed to update user: $error"));
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -284,19 +304,6 @@ class _AboutMeWidgetState extends State<AboutMeWidget> {
                     style: ElevatedButton.styleFrom(
                         fixedSize: const Size(350, 60),
                         primary: Color(0xFF28b446)),
-
-                    // options: FFButtonOptions(
-                    //   width: 230,
-                    //   height: 50,
-                    //   color: const Color(0xFF28b446),
-                    //   textStyle:
-                    //   elevation: 3,
-                    //   borderSide: BorderSide(
-                    //     color: Colors.transparent,
-                    //     width: 1,
-                    //   ),
-                    //   borderRadius: 8,
-                    // ),
                   ),
                 ],
               ),

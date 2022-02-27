@@ -1,5 +1,5 @@
 import 'package:ashiya_o_rasad/bottomnav.dart';
-import 'package:ashiya_o_rasad/home.dart';
+// import 'package:ashiya_o_rasad/home.dart';
 
 import '../auth/auth_util.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -12,7 +12,7 @@ import '../signup.dart';
 import '../login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
@@ -31,7 +31,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
 
   // GlobalKey<FormState> _userLoginFormKey = GlobalKey();
   // FirebaseUser _user;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
   // bool isSignIn = false;
   // bool google = false;

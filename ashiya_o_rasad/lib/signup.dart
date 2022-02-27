@@ -1,15 +1,17 @@
-import '../auth/auth_util.dart';
+//import '../auth/auth_util.dart';
+import '../variables.dart';
+
 // import '../flutter_flow/flutter_flow_theme.dart';
 // import '../flutter_flow/flutter_flow_util.dart';
 // import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login.dart';
-import '../main.dart';
+// import '../login.dart';
+// import '../main.dart';
 import '../bottomnav.dart';
 import '../Welcome.dart';
-import '../home.dart';
+// import '../home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpWidget extends StatefulWidget {
@@ -28,6 +30,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final CollectionReference users =
       FirebaseFirestore.instance.collection('Users');
+  static int added;
+  static String comp;
 
   @override
   void initState() {
@@ -164,17 +168,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     fontSize: 14.0,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
-                                    //   FlutterFlowTheme.bodyText1.override(
-                                    // fontFamily: 'Lexend Deca',
-                                    // color: Color(0xFF95A1AC),
-                                    // fontSize: 14,
-                                    // fontWeight: FontWeight.normal,
                                   ),
                                 ),
                               ),
                             ],
                           ),
                         ),
+                        // Email Form
                         Padding(
                           padding:
                               EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
@@ -187,27 +187,19 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   controller: emailAddressController,
                                   obscureText: false,
                                   decoration: InputDecoration(
+                                    // Label for Email
                                     labelText: 'Your Email',
                                     labelStyle: GoogleFonts.poppins(
                                       fontSize: 14.0,
                                       color: Color(0xFF95A1AC),
                                       fontWeight: FontWeight.w600,
-                                      //   FlutterFlowTheme.bodyText1.override(
-                                      // fontFamily: 'Lexend Deca',
-                                      // color: Color(0xFF95A1AC),
-                                      // fontSize: 14,
-                                      // fontWeight: FontWeight.normal,
                                     ),
+                                    // Hint for Email
                                     hintText: 'Enter your email here...',
                                     hintStyle: GoogleFonts.poppins(
                                       fontSize: 14.0,
                                       color: Color(0xFF95A1AC),
                                       fontWeight: FontWeight.w600,
-                                      //   FlutterFlowTheme.bodyText1.override(
-                                      // fontFamily: 'Lexend Deca',
-                                      // color: Color(0xFF95A1AC),
-                                      // fontSize: 14,
-                                      // fontWeight: FontWeight.normal,
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -236,11 +228,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     fontSize: 14.0,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
-                                    //   FlutterFlowTheme.bodyText1.override(
-                                    // fontFamily: 'Lexend Deca',
-                                    // color: Color(0xFF95A1AC),
-                                    // fontSize: 14,
-                                    // fontWeight: FontWeight.normal,
                                   ),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
@@ -265,11 +252,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       fontSize: 14.0,
                                       color: Color(0xFF95A1AC),
                                       fontWeight: FontWeight.w600,
-                                      //   FlutterFlowTheme.bodyText1.override(
-                                      // fontFamily: 'Lexend Deca',
-                                      // color: Color(0xFF95A1AC),
-                                      // fontSize: 14,
-                                      // fontWeight: FontWeight.normal,
                                     ),
                                     hintText: 'Enter your password here...',
                                     hintStyle: GoogleFonts.poppins(
@@ -277,13 +259,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       color: Color(0xFF95A1AC),
                                       fontWeight: FontWeight.w600,
                                     ),
-
-                                    //     FlutterFlowTheme.bodyText1.override(
-                                    //   fontFamily: 'Lexend Deca',
-                                    //   color: Color(0xFF95A1AC),
-                                    //   fontSize: 14,
-                                    //   fontWeight: FontWeight.normal,
-                                    // ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFDBE2E7),
@@ -354,34 +329,78 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
                                     // await Navigator.pushAndRemoveUntil(
                                     //   context,
-                                    final String name1 = NameController.text;
-                                    final String pass1 =
-                                        passwordController.text;
-                                    final String email1 =
+                                    // final String name1 = NameController.text;
+                                    // final String pass1 =
+                                    //     passwordController.text;
+                                    // final String email1 =
+                                    //     emailAddressController.text;
+                                    added = 0;
+                                    Account.name1 = NameController.text;
+                                    Account.pass1 = passwordController.text;
+                                    Account.email1 =
                                         emailAddressController.text;
-
-                                    if (name1 != null &&
-                                        pass1 != null &&
-                                        email1 != null) {
-                                      // Persist a new product to Firestore
-                                      await users.add({
-                                        "email": email1,
-                                        "name": name1,
-                                        "password": pass1
-                                      });
-                                    }
-
+                                    comp = Account.email1;
+                                    print('Before User $added');
+                                    // users
+                                    //     .where('email', isEqualTo: comp)
+                                    //     .get()
+                                    //     .then((_) => added = 1);
+                                    // Check if email exists
+                                    await users
+                                        .doc('${Account.email1}')
+                                        .get()
+                                        .then((DocumentSnapshot
+                                            documentSnapshot) {
+                                      if (documentSnapshot.exists) {
+                                        print(
+                                            'Document exists on the database');
+                                        added = 1;
+                                      }
+                                    });
+                                    print('After validating User $added');
+//                                        .catch((error) => print('Add failed'));
                                     NameController.text = '';
                                     passwordController.text = '';
                                     emailAddressController.text = '';
 
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => MainScreen(),
-                                        // NavBarPage(initialPage: 'Home'),
-                                      ),
-                                      //   (r) => false,
-                                    );
+                                    if (Account.name1 != null &&
+                                        Account.pass1 != null &&
+                                        Account.email1 != null) {
+                                      //if it doesnt exist then add and login
+                                      if (added == 0) {
+                                        print('Adding new User $comp, $added');
+                                        // Persist a new user to Firestore
+                                        await users
+                                            .doc('${Account.email1}')
+                                            .set({
+                                              "email": Account.email1,
+                                              "name": Account.name1,
+                                              "password": Account.pass1
+                                            })
+                                            .then((_) => print('Added'))
+                                            .catchError((error) =>
+                                                print('Add failed: $error'));
+                                        SnackBar(
+                                            content: Text(
+                                                'Enjoy your experience ${Account.name1}!'));
+                                      } else {
+                                        print('User exists $comp, $added');
+                                        SnackBar(
+                                            content: Text(
+                                                '${Account.email1} already exists'));
+                                      }
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => MainScreen(),
+                                          // NavBarPage(initialPage: 'Home'),
+                                        ),
+                                        //   (r) => false,
+                                      );
+                                    } else {
+                                      return SnackBar(
+                                          content:
+                                              Text('Information is missing'));
+                                    }
                                   },
                                   child: Text('Sign Up',
                                       style: GoogleFonts.poppins(
@@ -390,28 +409,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   style: ElevatedButton.styleFrom(
                                       fixedSize: const Size(350, 60),
                                       primary: Color(0xFF28b446)),
-
-                                  // options: FFButtonOptions(
-                                  // width: 330,
-                                  // height: 60,
-
-                                  // color: const Color(0xFF28b446),
-                                  // textStyle: TextStyle(
-                                  //   fontSize: 14.0,
-                                  //   color: Colors.white,
-                                  //   fontWeight: FontWeight.normal,
-                                  // ),
-
-                                  //     FlutterFlowTheme.bodyText2.override(
-                                  //   fontFamily: 'Poppins',
-                                  //   color: Colors.white,
-                                  // ),
-                                  // borderSide: BorderSide(
-                                  //   color: Colors.transparent,
-                                  //   width: 1,
-                                  // ),
-                                  // borderRadius: 12,
-                                  // ),
                                 ),
                               ),
                             ],
@@ -432,10 +429,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     color: Colors.grey[600],
                                     fontWeight: FontWeight.normal,
                                   ),
-                                  // style: FlutterFlowTheme.bodyText2.override(
-                                  //   fontFamily: 'Poppins',
-                                  //   fontSize: 14,
-                                  // ),
                                 ),
                               ),
                               Expanded(
@@ -444,6 +437,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       0, 0, 0, 0),
                                   child: InkWell(
                                     onTap: () async {
+                                      await fetchproducts();
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(

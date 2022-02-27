@@ -3,7 +3,7 @@ import 'package:ashiya_o_rasad/cart.dart';
 
 import 'account.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -35,17 +35,17 @@ class _MainScreenState extends State<MainScreen> {
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            title: Text('Home'),
+            label: 'Home',
             icon: Icon(Icons.home_outlined),
             activeIcon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            title: Text('Cart'),
+            label: 'Cart',
             icon: Icon(Icons.shopping_bag_outlined),
             activeIcon: Icon(Icons.shopping_bag),
           ),
           BottomNavigationBarItem(
-            title: Text('Profile'),
+            label: 'Profile',
             icon: Icon(Icons.person_outline),
             activeIcon: Icon(Icons.person),
           ),

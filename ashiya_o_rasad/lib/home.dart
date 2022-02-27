@@ -1,16 +1,12 @@
-// import '../flutter_flow/flutter_flow_theme.dart';
-// import '../flutter_flow/flutter_flow_util.dart';
-// import '../flutter_flow/flutter_flow_widgets.dart';
-// import 'dart:html';
-
 // import 'dart:html';
 
 import 'package:ashiya_o_rasad/cart.dart';
 import 'package:ashiya_o_rasad/search.dart';
 import 'package:ashiya_o_rasad/categories.dart';
 import 'dart:convert';
-import 'product_details.dart';
+import '/products/product_details.dart';
 import 'account.dart';
+import 'variables.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,16 +23,6 @@ DocumentSnapshot snapshot;
 final firestoreInstance = FirebaseFirestore.instance;
 Future<QuerySnapshot> years =
     FirebaseFirestore.instance.collection('Orders').get();
-var cat = [
-  'Beverages',
-  'Condiments',
-  'Dairy',
-  'Detergent',
-  'Fats and Olis',
-  'Flour',
-  'Processed Food',
-  'Spices'
-];
 
 var prodlist = [
   'ID1',
@@ -56,24 +42,15 @@ var prodlist = [
 // 'ID24', 'Surf Excel'
 // 'ID5', 'Dawn'
 
-// void getp() async {
-//   for (var i = 0; i <= cat.length - 1; i++)
-//     Future<QuerySnapshot> years = FirebaseFirestore.instance
-//         .collection('Category')
-//         .doc('categories')
-//         .collection(cat[i])
-//         .get();
-// }
-
 Future<List<String>> getproducts() async {
   // var prod = List<dynamic>();
-  for (var i = 0; i <= cat.length - 1; i++)
+  for (var i = 0; i <= Category.cat.length - 1; i++)
     firestoreInstance.collection("Category").get().then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         firestoreInstance
             .collection("Category")
             .doc(result.id)
-            .collection(cat[i])
+            .collection(Category.cat[i])
             .get()
             .then((querySnapshot) {
           querySnapshot.docs.forEach((result) {
@@ -99,14 +76,6 @@ class _HomeWidgetState extends State<HomeWidget> {
     }
   }
 
-  // this.getord();
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   searchFieldController = TextEditingController();
-  // }
-
-  // final db = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,10 +90,6 @@ class _HomeWidgetState extends State<HomeWidget> {
             color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
-          // style: FlutterFlowTheme.title3.override(
-          //   fontFamily: 'Poppins',
-          //   color: FlutterFlowTheme.secondaryColor,
-          // ),
         ),
         actions: [],
         centerTitle: false,
@@ -136,6 +101,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            // Search for Grocery button
             Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -177,6 +143,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
               ],
             ),
+            // Generate Grocery List button
             Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -212,6 +179,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
               ],
             ),
+            //Categories title on top
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 0),
               child: Row(
@@ -228,6 +196,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ],
               ),
             ),
+            // Show categories in a single row
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
               child: SingleChildScrollView(
@@ -235,158 +204,75 @@ class _HomeWidgetState extends State<HomeWidget> {
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                      child: Container(
-                        width: 80,
+                    for (var i = 0; i < 3; i++)
+                      // Shows category boxes with 3 different options to choose from
+                      Container(
+                        width: 90,
                         height: 100,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 48,
-                              height: 48,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                                child: Image.asset(
-                                  'assets/images/categories/Dairy.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              child: Text(
-                                'Dairy',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 13.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
-
-                                // style: FlutterFlowTheme.bodyText2.override(
-                                //   fontFamily: 'Poppins',
-                                //   color: Color(0xFF8B97A2),
-                                //   fontSize: 12,
-                                //   fontWeight: FontWeight.normal,
-                                // ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 90,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 48,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(7, 7, 7, 7),
-                              child: Image.asset(
-                                'assets/images/categories/Beverages.png',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                            child: Text(
-                              'Beverages',
-                              style: GoogleFonts.poppins(
-                                fontSize: 13.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                              ),
-
-                              // style: FlutterFlowTheme.bodyText2.override(
-                              //   fontFamily: 'Poppins',
-                              //   color: Color(0xFF8B97A2),
-                              //   fontSize: 12,
-                              //   fontWeight: FontWeight.normal,
-                              // ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      child: Container(
-                        width: 80,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                width: 48,
-                                height: 48,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      7, 7, 7, 7),
-                                  child: Image.asset(
-                                    'assets/images/categories/Spices.png',
-                                    fit: BoxFit.cover,
+                        child: InkWell(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                //Circle with Image inside
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
                                   ),
-                                )),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                              child: Text(
-                                'Spices',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 13.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 5, 5, 5),
+                                    child: Image.asset(
+                                      'assets/images/categories/${Category.cat[i]}.png',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-
-                                // style: FlutterFlowTheme.bodyText2.override(
-                                //   fontFamily: 'Poppins',
-                                //   color: Color(0xFF8B97A2),
-                                //   fontSize: 12,
-                                //   fontWeight: FontWeight.normal,
-                                // ),
-                              ),
+                                // Bottom Text
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 0),
+                                  child: Text(
+                                    Category.cat[i],
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 13.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                            onTap: () {
+                              // final CollectionReference catget =
+                              //     FirebaseFirestore.instance
+                              //         .collection('Category');
+                              // catget
+                              //     .doc('${Account.email1}')
+                              //     .get()
+                              //     .then((DocumentSnapshot documentSnapshot) {
+                              //   if (documentSnapshot.exists) {
+                              //     Map<String, dynamic> data = documentSnapshot
+                              //         .data() as Map<String, dynamic>;
+                              //     print(
+                              //         '${Account.pass1}, ${data['password']}');
+                              //     if (Account.pass1 == data['password']) {
+                              //       print('Document exists on the database');
+                              //       Account.name1 = data['name'];
+                              //       print(
+                              //           "Full Name: ${data['name']}, Email: ${data['email']}");
+                              //     }
+                              //   }
+                              // });
+                            }),
                       ),
-                    ),
+                    // More Button
                     GestureDetector(
                       onTap: () async {
                         await Navigator.push(
@@ -422,21 +308,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                             ),
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                  EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                               child: Text(
                                 'More',
                                 style: GoogleFonts.poppins(
                                   fontSize: 12.0,
                                   color: Color(0xFF8B97A2),
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                 ),
-
-                                // style: FlutterFlowTheme.bodyText2.override(
-                                //   fontFamily: 'Poppins',
-                                //   color: Color(0xFF8B97A2),
-                                //   fontSize: 12,
-                                //   fontWeight: FontWeight.normal,
-                                // ),
                               ),
                             ),
                           ],
@@ -447,6 +326,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
               ),
             ),
+            // Featured Products title
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 8, 20, 8),
               child: Row(
@@ -690,6 +570,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               ],
             ),
             */
+            //Show several different products
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -697,92 +578,143 @@ class _HomeWidgetState extends State<HomeWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: GridView(
-                          physics: NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 1,
-                          ),
-                          primary: false,
-                          shrinkWrap: true,
-                          // scrollDirection: Axis.vertical,
-                          children: [
-                            StreamBuilder<QuerySnapshot>(
-                              stream: FirebaseFirestore.instance
-                                  .collection('Orders')
-                                  .snapshots(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                                return new ListView(
-                                  shrinkWrap: true,
-                                  children: snapshot.data.docs.map(
-                                    (document) {
-                                      if (prodlist
-                                          .contains(document['InvoiceID'])) {
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: Card(
-                                            child: Column(
-                                              children: [
-                                                InkWell(
-                                                  splashColor: Colors.white,
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ProductDetailsWidget(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          // mainAxisSize:
-                                                          //     MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/Products/' +
-                                                                    document[
-                                                                        'ProductName'] +
-                                                                    '.png',
-                                                                width: 80,
-                                                                height: 80,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
+                      child: GridView(
+                        physics: ScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 1,
+                        ),
+                        primary: false,
+                        shrinkWrap: true,
+                        children: [
+                          StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('Orders')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return new ListView(
+                                shrinkWrap: true,
+                                children: snapshot.data.docs.map(
+                                  (document) {
+                                    if (prodlist
+                                        .contains(document['InvoiceID'])) {
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        //Build a card for a sample product
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              //Touchable Card
+                                              InkWell(
+                                                splashColor: Colors.white,
+                                                // What will happen if you press the blank screen of the card
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ProductDetailsWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                                // How the deisgn structure of the card would look like
+                                                child: Container(
+                                                  //From top to bottom what will different tems look like
+                                                  child: Column(
+                                                    children: [
+                                                      //Image display of the card
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0),
+                                                            child: Image.asset(
+                                                              'assets/images/Products/' +
+                                                                  document[
+                                                                      'ProductName'] +
+                                                                  '.png',
+                                                              width: 80,
+                                                              height: 80,
+                                                              fit: BoxFit.cover,
                                                             ),
-                                                          ],
-                                                        ),
-                                                        Row(
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      //Show Product Name
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            document[
+                                                                'ProductName'],
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontSize: 13.0,
+                                                              color: Color(
+                                                                  0xFF28B446),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      //Show Price
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'PKR ' +
+                                                                document[
+                                                                        'Price']
+                                                                    .toString(),
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontSize: 15.0,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      //Show Quantity
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 0, 0, 1),
+                                                        child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           mainAxisAlignment:
@@ -790,191 +722,97 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              document[
-                                                                  'ProductName'],
+                                                              '1.0 Litre',
                                                               style: GoogleFonts
                                                                   .poppins(
                                                                 fontSize: 13.0,
                                                                 color: Color(
-                                                                    0xFF28B446),
+                                                                    0xFF868889),
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
                                                               ),
-
-                                                              // style: FlutterFlowTheme.bodyText1.override(
-                                                              //   fontFamily: 'Poppins',
-                                                              //   color: Color(0xFF28B446),
-                                                              //   fontSize: 13,
-                                                              //   fontWeight: FontWeight.w500,
-                                                              // ),
                                                             ),
                                                           ],
                                                         ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              'PKR ' +
-                                                                  document[
-                                                                          'Price']
-                                                                      .toString(),
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                fontSize: 15.0,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 0, 1),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                '1.0 Litre',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  fontSize:
-                                                                      13.0,
-                                                                  color: Color(
-                                                                      0xFF868889),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-
-                                                                // style: FlutterFlowTheme.bodyText1
-                                                                //     .override(
-                                                                //   fontFamily: 'Poppins',
-                                                                //   color: Color(0xFF868889),
-                                                                //   fontSize: 13,
-                                                                // ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Row(
-                                                  // mainAxisSize: MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    ElevatedButton.icon(
-                                                      onPressed: () async {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                          SnackBar(
-                                                            content: Text(
-                                                              'Added To Cart',
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                fontSize: 15.0,
-                                                                color: Colors
-                                                                    .grey[800],
+                                              ),
+                                              //Add to Cart Button
+                                              Row(
+                                                // mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton.icon(
+                                                    onPressed: () async {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Added To Cart',
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontSize: 15.0,
+                                                              color: Colors
+                                                                  .grey[800],
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          ),
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  4000),
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                        ),
+                                                      );
+                                                    },
+                                                    label: Text('Add To Cart',
+                                                        style:
+                                                            GoogleFonts.poppins(
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w400,
-                                                              ),
-                                                            ),
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    4000),
-                                                            backgroundColor:
-                                                                Colors.white,
-                                                          ),
-                                                        );
-                                                      },
-                                                      label: Text('Add To Cart',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500)),
-                                                      icon: Icon(
-                                                        Icons
-                                                            .shopping_bag_outlined,
-                                                        color: Colors.white,
-                                                        size: 17,
-                                                      ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              fixedSize:
-                                                                  const Size(
-                                                                      181, 40),
-                                                              primary: Color(
-                                                                  0xFF28b446)),
+                                                                        .w500)),
+                                                    icon: Icon(
+                                                      Icons
+                                                          .shopping_bag_outlined,
+                                                      color: Colors.white,
+                                                      size: 17,
                                                     ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            fixedSize:
+                                                                const Size(
+                                                                    181, 40),
+                                                            primary: Color(
+                                                                0xFF28b446)),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
-                                        );
-                                      } else {
-                                        return Container();
-                                      }
-                                    },
-                                  ).toList(),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
+                                  },
+                                ).toList(),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ],
             ),
-            // for(int i=0; i<ord.length-1; i++)
-            //   FutureBuilder<QuerySnapshot>(
-            //     future: years,
-            //     builder: (BuildContext context,
-            //         AsyncSnapshot<QuerySnapshot> snapshot) {
-            //       if (!snapshot.hasData) {
-            //         // return Text('ErrorLOTS');
-            //         return Center(
-            //           child: CircularProgressIndicator(),
-            //         );
-            //       }
-            //       final List<DocumentSnapshot> documents = snapshot.data.docs;
-            //       return ListView(
-            //         // scrollDirection: Axis.vertical,
-            //         shrinkWrap: true,
-            //         children: documents.map((doc) {
-            //           return Card(
-            //             child: ListTile(
-            //               title: Text('${doc.id}'),
-            //               //subtitle: Text('category:     ${doc['category']}'),
-            //             ),
-            //           );
-            //         }).toList(),
-            //       );
-            //     },
-            //   ),
           ],
         ),
       ),

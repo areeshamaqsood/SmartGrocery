@@ -99,13 +99,6 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                                 color: Color(0xFF28B446),
                                 fontWeight: FontWeight.w600,
                               ),
-
-                              // style: FlutterFlowTheme.bodyText2.override(
-                              //   fontFamily: 'Poppins',
-                              //   color: Color(0xFF28B446),
-                              //   fontSize: 20,
-                              //   fontWeight: FontWeight.w500,
-                              // ),
                             ),
                           ),
                         ],

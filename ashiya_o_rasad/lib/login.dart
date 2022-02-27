@@ -7,8 +7,11 @@ import '../main.dart';
 import '../bottomnav.dart';
 import '../Welcome.dart';
 import '../home.dart';
+import '../variables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
@@ -23,6 +26,10 @@ class _LoginWidgetState extends State<LoginWidget> {
   TextEditingController passwordController;
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('Users');
+  static int added;
+  static String comp;
 
   @override
   void initState() {
@@ -30,6 +37,8 @@ class _LoginWidgetState extends State<LoginWidget> {
     emailAddressController = TextEditingController();
     // emailAddressController2 = TextEditingController();
     passwordController = TextEditingController();
+    emailAddressController.text = "test";
+    passwordController.text = "1234";
     passwordVisibility = false;
   }
 
@@ -95,13 +104,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     color: Color(0xFF090F13),
                                     fontWeight: FontWeight.bold,
                                   ),
-
-                                  // style: FlutterFlowTheme.title1.override(
-                                  //   fontFamily: 'Poppins',
-                                  //   color: Color(0xFF090F13),
-                                  //   fontSize: 24,
-                                  //   fontWeight: FontWeight.bold,
-                                  // ),
                                 ),
                               ),
                             ],
@@ -124,22 +126,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       fontSize: 14.0,
                                       color: Color(0xFF95A1AC),
                                       fontWeight: FontWeight.w600,
-                                      //   FlutterFlowTheme.bodyText1.override(
-                                      // fontFamily: 'Lexend Deca',
-                                      // color: Color(0xFF95A1AC),
-                                      // fontSize: 14,
-                                      // fontWeight: FontWeight.normal,
                                     ),
                                     hintText: 'Enter your email here...',
                                     hintStyle: GoogleFonts.poppins(
                                       fontSize: 14.0,
                                       color: Color(0xFF95A1AC),
                                       fontWeight: FontWeight.w600,
-                                      //   FlutterFlowTheme.bodyText1.override(
-                                      // fontFamily: 'Lexend Deca',
-                                      // color: Color(0xFF95A1AC),
-                                      // fontSize: 14,
-                                      // fontWeight: FontWeight.normal,
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -168,11 +160,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     fontSize: 14.0,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
-                                    //   FlutterFlowTheme.bodyText1.override(
-                                    // fontFamily: 'Lexend Deca',
-                                    // color: Color(0xFF95A1AC),
-                                    // fontSize: 14,
-                                    // fontWeight: FontWeight.normal,
                                   ),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
@@ -263,24 +250,69 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     20, 0, 20, 0),
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    // final user = await createAccountWithEmail(
-                                    //   context,
-                                    //   emailAddressController.text,
-                                    //   passwordController.text,
-                                    // );
-                                    // if (user == null) {
-                                    //   return;
-                                    // }
+                                    added = 0;
+                                    print('Before User $added');
 
-                                    // await Navigator.pushAndRemoveUntil(
-                                    //   context,
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => MainScreen(),
-                                        // NavBarPage(initialPage: 'Home'),
-                                      ),
-                                      //   (r) => false,
-                                    );
+                                    // Check if email exists
+                                    Account.pass1 = passwordController.text;
+                                    Account.email1 =
+                                        emailAddressController.text;
+                                    comp = Account.email1;
+
+                                    await users
+                                        .doc('${Account.email1}')
+                                        .get()
+                                        .then((DocumentSnapshot
+                                            documentSnapshot) {
+                                      if (documentSnapshot.exists) {
+                                        Map<String, dynamic> data =
+                                            documentSnapshot.data()
+                                                as Map<String, dynamic>;
+                                        print(
+                                            '${Account.pass1}, ${data['password']}');
+                                        if (Account.pass1 == data['password']) {
+                                          print(
+                                              'Document exists on the database');
+                                          added = 1;
+                                          Account.name1 = data['name'];
+                                          print(
+                                              "Full Name: ${data['name']}, Email: ${data['email']}");
+                                        }
+                                      }
+                                    });
+                                    print('After validating User $added');
+
+                                    passwordController.text = '';
+                                    emailAddressController.text = '';
+
+                                    if (Account.pass1 != null &&
+                                        Account.email1 != null) {
+                                      //if it doesnt exist then add and login
+                                      if (added == 0) {
+                                        print(
+                                            'User doesnt exist $comp, $added');
+                                        SnackBar(
+                                            content: Text(
+                                                'Account${Account.name1} does not exist!'));
+                                      } else {
+                                        await fetchproducts();
+                                        print('User exists $comp, $added');
+                                        SnackBar(
+                                            content: Text(
+                                                'Welcome back ${Account.email1}!'));
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => MainScreen(),
+                                            // NavBarPage(initialPage: 'Home'),
+                                          ),
+                                          //   (r) => false,
+                                        );
+                                      }
+                                    } else {
+                                      return SnackBar(
+                                          content:
+                                              Text('Information is missing'));
+                                    }
                                   },
                                   child: Text('Login',
                                       style: GoogleFonts.poppins(
@@ -289,28 +321,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   style: ElevatedButton.styleFrom(
                                       fixedSize: const Size(350, 60),
                                       primary: Color(0xFF28b446)),
-
-                                  // options: FFButtonOptions(
-                                  // width: 330,
-                                  // height: 60,
-
-                                  // color: const Color(0xFF28b446),
-                                  // textStyle: TextStyle(
-                                  //   fontSize: 14.0,
-                                  //   color: Colors.white,
-                                  //   fontWeight: FontWeight.normal,
-                                  // ),
-
-                                  //     FlutterFlowTheme.bodyText2.override(
-                                  //   fontFamily: 'Poppins',
-                                  //   color: Colors.white,
-                                  // ),
-                                  // borderSide: BorderSide(
-                                  //   color: Colors.transparent,
-                                  //   width: 1,
-                                  // ),
-                                  // borderRadius: 12,
-                                  // ),
                                 ),
                               ),
                             ],
@@ -331,10 +341,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     color: Colors.grey[600],
                                     fontWeight: FontWeight.normal,
                                   ),
-                                  // style: FlutterFlowTheme.bodyText2.override(
-                                  //   fontFamily: 'Poppins',
-                                  //   fontSize: 14,
-                                  // ),
                                 ),
                               ),
                               Expanded(

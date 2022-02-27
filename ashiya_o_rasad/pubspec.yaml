@@ -71,9 +71,10 @@ flutter:
     - assets/images/categories/Condiments.png
     - assets/images/categories/Spices.png
     - assets/images/categories/Detergent.png
-    - assets/images/categories/Fats.png
+    - assets/images/categories/Fats and Olis.png
     - assets/images/categories/Flour.png
     - assets/images/categories/Processed.png
+    - assets/images/categories/Processed Food.png
     - assets/images/categories/Spices.png
     - assets/images/categories/Dairy.png
     - assets/images/Milk.jpg
@@ -86,6 +87,22 @@ flutter:
     - assets/images/Products/Dawn.png
     - assets/images/Products/Ariel.png
     - assets/images/signup.jpg
+    - assets/images/categories/Fats and Oil.png
+    - assets/images/ProductTypes/Ariel.png
+    - assets/images/ProductTypes/Bread.png
+    - assets/images/ProductTypes/Cardamom.png
+    - assets/images/ProductTypes/Dalda.png
+    - assets/images/ProductTypes/Egg.png
+    - assets/images/ProductTypes/Gram.png
+    - assets/images/ProductTypes/Milk.png
+    - assets/images/ProductTypes/Pickle.png
+    - assets/images/ProductTypes/Salt.png
+    - assets/images/ProductTypes/Sugar.png
+    - assets/images/ProductTypes/SurfExcel.png
+    - assets/images/ProductTypes/Tea.png
+    - assets/images/ProductTypes/Turmeric.png
+    - assets/images/ProductTypes/Wheat.png
+
   # - assets/videos/
   # - assets/audios/
   # To add assets to your application, add an assets section, like this:

@@ -1,11 +1,12 @@
 import '../aboutme.dart';
+import '../variables.dart';
 // import '../flutter_flow/flutter_flow_theme.dart';
 // import '../flutter_flow/flutter_flow_util.dart';
 // import '../flutter_flow/flutter_flow_widgets.dart';
 import '../welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AccountWidget extends StatefulWidget {
   const AccountWidget({Key key}) : super(key: key);
@@ -51,7 +52,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                               child: Text(
-                                'Shujaa Marwat',
+                                Account.name1,
                                 style: GoogleFonts.poppins(
                                   fontSize: 24.0,
                                   color: Colors.black,
@@ -68,7 +69,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                               child: Text(
-                                'i180432@gmail.com',
+                                Account.email1,
                                 style: GoogleFonts.poppins(
                                   fontSize: 14.0,
                                   color: Color(0xFF28b446),
@@ -228,23 +229,6 @@ class _AccountWidgetState extends State<AccountWidget> {
                         style: ElevatedButton.styleFrom(
                             fixedSize: const Size(350, 60),
                             primary: Color(0xFF28b446)),
-                        // options: FFButtonOptions(
-                        //   width: 100,
-                        //   height: 40,
-                        //   color: const Color(0xFF28b446),
-                        //   textStyle: TextStyle(
-                        //     fontFamily: 'Poppins',
-                        //     color: Colors.white,
-                        //     fontSize: 14,
-                        //     fontWeight: FontWeight.normal,
-                        //   ),
-                        //   elevation: 3,
-                        //   borderSide: BorderSide(
-                        //     color: Colors.transparent,
-                        //     width: 1,
-                        //   ),
-                        //   borderRadius: 8,
-                        // ),
                       ),
                     ],
                   ),
