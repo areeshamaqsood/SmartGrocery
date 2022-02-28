@@ -326,7 +326,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
               ),
             ),
-            // Featured Products title
+            // Featured Products title(of all)
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 8, 20, 8),
               child: Row(
