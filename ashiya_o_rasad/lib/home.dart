@@ -4,9 +4,10 @@ import 'package:ashiya_o_rasad/cart.dart';
 import 'package:ashiya_o_rasad/search.dart';
 import 'package:ashiya_o_rasad/categories.dart';
 import 'dart:convert';
-import '/products/product_details.dart';
+import 'products/product_details.dart';
 import 'account.dart';
 import 'variables.dart';
+import 'ashwidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -578,6 +579,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
+                      // Call an external widget that shows all product list
+                      child: AllProducts(),
+                      /*
                       child: GridView(
                         physics: ScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -625,7 +629,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          ProductDetailsWidget(),
+                                                          AllProducts(),
+                                                      // ProductDetailsWidget(),
                                                     ),
                                                   );
                                                 },
@@ -808,6 +813,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                         ],
                       ),
+                      */
                     ),
                   ],
                 ),

@@ -1,4 +1,4 @@
-import 'package:ashiya_o_rasad/home.dart';
+// import 'package:ashiya_o_rasad/home.dart';
 import 'package:ashiya_o_rasad/categories.dart';
 import '/products/prodshow.dart';
 import '../variables.dart';
@@ -22,12 +22,12 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
 
   static String lower;
   static bool redirect = false;
-  final Stream _prodcat = FirebaseFirestore.instance
-      .collection('Category')
-      .doc('categories')
-      .collection(Category.cat1)
-      .doc(lower)
-      .snapshots();
+  // final Stream _prodcat = FirebaseFirestore.instance
+  //     .collection('Category')
+  //     .doc('categories')
+  //     .collection(Category.cat1)
+  //     .doc(lower)
+  //     .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +139,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                     Category.ProdMap.forEach((key, value) {
                       if (key.contains('${Category.ProductTypes[index]}')) {
                         // There is no entry for the product as of yet so it cant redirect
-                        if (value.contains("{}")) {
+                        if (value.isEmpty) {
                           print(
                               'Sorry, no products yet for ${Category.ProductTypes[index]}');
 

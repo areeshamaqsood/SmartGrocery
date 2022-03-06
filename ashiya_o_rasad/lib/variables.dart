@@ -31,9 +31,10 @@ class Category {
   static String currentproductcat;
   static List<String> ProductTypes = [];
   static List<String> ProductTypeslower = [];
-  static List<String> Products = [];
-  static Map<String, String> ProdMap = {};
+  static List<List<String>> Products = [];
+  static Map<String, List<String>> ProdMap = {};
   static List<String> keyval = [];
+  static List<String> viewProduct = [];
 }
 
 //convert string to lower case
@@ -54,13 +55,14 @@ Future<void> fetchproducts() async {
   DocumentReference catdoc =
       FirebaseFirestore.instance.collection('Category').doc('categories');
 
-  //Essential to clear out the array list when data loads
   // final List<String> ProductTypeslower = [];
   // Category.Products.clear();
+
+  //Essential to clear out the array list when data loads
   Category.ProductTypes.clear();
   Category.ProductTypeslower.clear();
   print("???????,${Category.cat.length}");
-  //Retreive Product types
+  //Retreive Product types(Tea,Bread,Cardamom etc)
   for (var i = 0; i <= Category.cat.length - 1; i++) {
     await catdoc
         .collection(Category.cat[i])
@@ -70,20 +72,20 @@ Future<void> fetchproducts() async {
         Category.cat2 = doc['prod'];
         String s1 = doc.id;
         Category.ProductTypeslower.add(s1);
-        print("${s1}???????,${Category.ProductTypeslower}");
+        // print("${s1}???????,${Category.ProductTypeslower}");
         List<String> list2 = ProductType();
         Category.ProductTypes.addAll(list2);
-        print("Before Final List: ${Category.ProductTypes}");
+        // print("Before Final List: ${Category.ProductTypes}");
         // print("Pressed ${Category.cat[i]}");
       });
     });
   }
 
-  print("*********Final List: ${Category.ProductTypeslower}");
-  print("*********Products List: ${Category.ProductTypes}");
+  print("*********Category List: ${Category.ProductTypeslower}");
+  print("*********Product types List: ${Category.ProductTypes}");
 
   // List<String> prodget = [];
-  //Retreive Products
+  //Retrieve Products
   for (var i = 0; i <= Category.cat.length - 1; i++) {
     Category.cat1 = Category.cat[i];
     // String plc = convertlower();
@@ -97,22 +99,49 @@ Future<void> fetchproducts() async {
           .get()
           .then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((doc) {
-          // if (doc.data().)
           String keys = Category.ProductTypes[j] + x.toString();
           Category.keyval.add(keys);
-          // print(doc.data().toString());
-          // if (doc.data().toString().contains('Name')) {
-          //   List<String> prodget = [
-          //     doc['Name'],
-          //     doc['Price'],
-          //     doc['Quantity'],
-          //   ];
-          // }
-          Category.cat2 = doc.data().toString();
-          print("Products List: ${Category.cat2}, str: ${keys}");
-          Category.ProdMap[keys] = Category.cat2;
-          // Category.ProdMap[str] = ProductType();
+          // Add products in a list with respect to order
+          List<String> prodget = [];
+          // Beverages,Condiments,Fats,Flour,Processed,Spices
+          print(doc.data());
+          if (doc.data().toString().contains('Name')) {
+            prodget.add(doc['Name']);
+            prodget.add(doc['Price']);
+            prodget.add(doc['Quantity'].toString());
+            // Egg
+            if (doc.data().toString().contains('Type')) {
+              prodget.add(doc['Type']);
+            }
+          }
+          // Detergent
+          if (doc.data().toString().contains('Brand')) {
+            print("Inside Brand");
+            prodget.add(doc['Brand']);
+            prodget.add(doc['Price']);
+            // Bread
+            if (doc.data().toString().contains('Type')) {
+              print("Inside Brand");
+              prodget.add(doc['Size']);
+              prodget.add(doc['Type']);
+            }
+            // Milk
+            if (doc.data().toString().contains('Litres')) {
+              prodget.add(doc['Litres'].toString());
+            }
+            if (doc.data().toString().contains('Quantity')) {
+              prodget.add(doc['Quantity'].toString());
+            }
+          }
 
+          // Category.cat2 = doc.data().toString();
+          // print("Products List: ${Category.cat2}, str: ${keys}");
+          // Category.ProdMap[keys] = Category.cat2;
+
+          // Mapping products in one unanimous variable
+          Category.ProdMap[keys] = prodget;
+
+          // Category.ProdMap[str] = ProductType();
           // prodget.clear();
           x++;
         });
@@ -124,4 +153,44 @@ Future<void> fetchproducts() async {
 
 class Health {
   static List<String> Lactose = ['Dairy'];
+}
+
+Map<int, String> prodprice() {
+// void proditems() {
+  Map<int, String> prodname = {};
+  Map<int, String> prodprice = {};
+  int i = 0;
+  String s = "";
+  String price = "";
+  for (MapEntry e in Category.ProdMap.entries) {
+    // print("Key ${e.key}, Value ${e.value}");
+    s = e.value;
+    if (s != "{}") {
+      if (s.contains("Name") == true) {
+        String NameP = s.substring(s.indexOf("Name") + 6, s.length - 1);
+        if (s.indexOf(",") > s.indexOf("Price")) {
+          price = s.substring(s.indexOf("Price") + 7, s.indexOf(","));
+          print(
+              "IndexName = ${s.indexOf("Name")}, Name = ..${NameP}.., Price = ..${price}..");
+          prodprice[i] = price;
+          prodname[i] = NameP;
+          i += 1;
+          // print(i);
+        }
+      }
+      if (s.contains("Brand") == true) {
+        String BrandP = s.substring(s.indexOf("Brand") + 7, s.indexOf(","));
+        print(
+            "IndexBrand = ${s.indexOf("Brand")},Brand = ..${BrandP}.., Price = ..${price}..");
+        prodprice[i] = price;
+        prodname[i] = BrandP;
+        i += 1;
+        // print(i);
+      }
+    }
+  }
+  print(prodname);
+  print("/////////////////////////////////////////////////////////////////");
+  // print(prod1.length);
+  return prodprice;
 }
