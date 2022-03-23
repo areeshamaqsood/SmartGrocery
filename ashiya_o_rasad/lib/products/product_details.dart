@@ -96,7 +96,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                         children: [
                           Expanded(
                             child: Text(
-                              Category.viewProduct[1],
+                              Category.viewProduct[0][1],
                               style: GoogleFonts.poppins(
                                 fontSize: 20.0,
                                 color: Color(0xFF28B446),
@@ -115,7 +115,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                         children: [
                           Expanded(
                             child: Text(
-                              Category.viewProduct[0],
+                              Category.viewProduct[0][0],
                               style: TextStyle(
                                 fontSize: 20.0,
                                 color: Colors.black,
@@ -135,7 +135,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                           Expanded(
                             // flex: 1,
                             child: Text(
-                              Category.viewProduct[2],
+                              Category.viewProduct[0][2],
                               style: GoogleFonts.poppins(
                                 fontSize: 15.0,
                                 color: Color(0xFF868889),
@@ -156,7 +156,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                           children: [
                             Expanded(
                               child: Text(
-                                Category.viewProduct[3],
+                                Category.viewProduct[0][3],
                                 style: GoogleFonts.poppins(
                                   fontSize: 15.0,
                                   color: Color(0xFF868889),
@@ -224,6 +224,8 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                         children: [
                           ElevatedButton(
                             onPressed: () async {
+                              Cart.ProdCart.add(Category.viewProduct[0]);
+                              Cart.ProdQty.add(countControllerValue);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(

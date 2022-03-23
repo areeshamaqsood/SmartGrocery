@@ -71,7 +71,7 @@ class _ProductShowWidgetState extends State<ProductShowWidget> {
                     splashColor: Colors.white,
                     // What will happen if you press the blank screen of the card
                     onTap: () async {
-                      Category.viewProduct = Category.Products[index];
+                      Category.viewProduct[0] = Category.Products[index];
                       print(
                           "VIEW = ${Category.Products[index]},    PRODVIEW =  ${Category.viewProduct}, LISTVIEW = ${ind}");
 
@@ -178,7 +178,7 @@ class _ProductShowWidgetState extends State<ProductShowWidget> {
                               backgroundColor: Colors.white,
                             ),
                           );
-                          Category.viewProduct = ind;
+                          Category.viewProduct[0] = ind;
                           print(Category.viewProduct);
                         },
                         label: Text('Add To Cart',

@@ -57,6 +57,12 @@ class _AllProductsState extends State<AllProducts> {
                   splashColor: Colors.white,
                   // What will happen if you press the blank screen of the card
                   onTap: () async {
+                    Category.viewProduct.clear();
+                    String x = Category.ProdMap.keys.elementAt(index);
+                    List<String> y = [];
+                    y = ProdMap[x];
+                    print("y: ${y}");
+                    Category.viewProduct.add(y);
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -144,6 +150,14 @@ class _AllProductsState extends State<AllProducts> {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () async {
+                        String x = Category.ProdMap.keys.elementAt(index);
+                        List<String> y = [];
+                        y = ProdMap[x];
+                        print("y: ${y}");
+                        Cart.ProdCart.add(y);
+                        print("ProdCart: ${Cart.ProdCart}");
+                        print(ProdMap[index]);
+                        Cart.ProdQty.add(1);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(

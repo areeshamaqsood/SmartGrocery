@@ -3,6 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+class Cart {
+  static List<List<String>> ProdCart = [];
+  static List<int> ProdQty = [];
+}
+
 // Stores information about the current account being logged in
 class Account {
   static String name1;
@@ -34,7 +39,7 @@ class Category {
   static List<List<String>> Products = [];
   static Map<String, List<String>> ProdMap = {};
   static List<String> keyval = [];
-  static List<String> viewProduct = [];
+  static List<List<String>> viewProduct = [];
 }
 
 //convert string to lower case
