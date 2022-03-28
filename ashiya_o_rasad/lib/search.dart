@@ -7,8 +7,17 @@ import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'dart:async';
+import 'dart:io' as io;
+import 'package:file/file.dart';
+import 'package:file/local.dart';
+import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 class SearchWidget extends StatefulWidget {
-  const SearchWidget({Key key}) : super(key: key);
+  LocalFileSystem localFileSystem;
+  SearchWidget({Key key, localFileSystem}) :localFileSystem = localFileSystem ?? const LocalFileSystem(), super(key: key);
 
   @override
   _SearchWidgetState createState() => _SearchWidgetState();
@@ -17,6 +26,12 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // Initialize Recorder Object and Current Status
+  FlutterAudioRecorder2 _recorder;
+  Recording _current;
+  RecordingStatus _currentStatus = RecordingStatus.Unset;
+  String outputText = "Test Output";
 
   @override
   void initState() {
@@ -246,10 +261,34 @@ class _SearchWidgetState extends State<SearchWidget> {
                 ElevatedButton.icon(
                   onPressed: () {
                     print("Voice Search");
+                    print("Hello World :)");
+
+                    switch (_currentStatus) {
+                      case RecordingStatus.Unset: {
+                        _start();
+                        break;
+                      }
+                      case RecordingStatus.Initialized: {
+                        _start();
+                        break;
+                      }
+                      case RecordingStatus.Recording: {
+                        _stop();
+                        break;
+                      }
+                      case RecordingStatus.Stopped: {
+                        _start();
+                        break;
+                      }
+                      default:
+                        print("Nothing happens");
+                        break;
+                    }
                   },
-                  label: Text('Voice Search',
-                      style: GoogleFonts.poppins(
-                          fontSize: 15, fontWeight: FontWeight.w500)),
+                  label: _buildText(_currentStatus),
+                  // Text('Voice Search',
+                  //     style: GoogleFonts.poppins(
+                  //         fontSize: 15, fontWeight: FontWeight.w500)),
                   icon: Icon(
                     Icons.mic,
                     size: 20,
@@ -276,5 +315,155 @@ class _SearchWidgetState extends State<SearchWidget> {
         ],
       ),
     );
+  }
+
+
+//  Recorder Application
+  _start() async {
+
+    //Initialize state
+    try {
+      bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
+
+      if (hasPermission) {
+        String customPath = '/flutter_audio_recorder_';
+        io.Directory appDocDirectory;
+//        io.Directory appDocDirectory = await getApplicationDocumentsDirectory();
+        if (io.Platform.isIOS) {
+          appDocDirectory = await getApplicationDocumentsDirectory();
+        } else {
+          appDocDirectory = (await getExternalStorageDirectory());
+        }
+
+        // can add extension like ".mp4" ".wav" ".m4a" ".aac"
+        customPath = appDocDirectory.path +
+            customPath +
+            DateTime.now().millisecondsSinceEpoch.toString();
+        // customPath = 'assets/flutter_audio_recorder_' + DateTime.now().millisecondsSinceEpoch.toString();
+
+        // .wav <---> AudioFormat.WAV
+        // .mp4 .m4a .aac <---> AudioFormat.AAC
+        // AudioFormat is optional, if given value, will overwrite path extension when there is conflicts.
+        _recorder =
+            FlutterAudioRecorder2(customPath, audioFormat: AudioFormat.WAV);
+
+        await _recorder.initialized;
+        // after initialization
+        var current = await _recorder.current(channel: 0);
+        print(current);
+        // should be "Initialized", if all working fine
+        setState(() {
+          _current = current;
+          _currentStatus = current.status;
+          print(_currentStatus);
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("You must accept permissions")));
+      }
+    } catch (e) {
+      print(e);
+    }
+
+
+
+    try {
+      await _recorder.start();
+      var recording = await _recorder.current(channel: 0);
+      setState(() {
+        _current = recording;
+      });
+
+      const tick = Duration(milliseconds: 50);
+      Timer.periodic(tick, (Timer t) async {
+        if (_currentStatus == RecordingStatus.Stopped) {
+          t.cancel();
+        }
+
+        var current = await _recorder.current(channel: 0);
+        setState(() {
+          _current = current;
+          _currentStatus = _current.status;
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
+  _stop() async {
+    var result = await _recorder.stop();
+    print("Stop recording: ${result.path}");
+    print("Stop recording: ${result.duration}");
+    File file = widget.localFileSystem.file(result.path);
+    print("File length: ${await file.length()}");
+    setState(() {
+      _current = result;
+      _currentStatus = _current.status;
+    });
+
+    // Read file from the storage
+    print(_current?.path);
+    var pathToAudio = _current?.path;
+    io.File audio = io.File(pathToAudio);
+    print(audio);
+
+
+    // Upload local file to FireStorage (Server)
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    try {
+      await firebaseStorage
+          .ref('FYP-audio_1')
+          .putFile(audio);
+      print('Success');
+    } catch(error) {
+      print("Error Occured\n");
+    }
+
+    // Get Download Link
+    String downloadURL = await firebaseStorage.ref('FYP-audio_1').getDownloadURL();
+    print(downloadURL);
+    //
+    // // Send the link over to Flask Server
+    // var output;
+    // try {
+    //   var response = await http.post(Uri.parse('http://10.0.2.2:5000/api'),
+    //       body: {'downloadLink': downloadURL, 'ref': 'FYP-audio_1'});
+    //   // String output_word = JsonDecoder(response.body);
+    //   setState(() {
+    //     outputText = response.body;
+    //   });
+    //   output = response.body;
+    //   print(response.body);
+    // } catch(e) {
+    //   print(e);
+    // }
+
+  }
+
+  Widget _buildText(RecordingStatus status) {
+    var text = "";
+    switch (_currentStatus) {
+      case RecordingStatus.Initialized:
+        {
+          text = 'Start Recording';
+          break;
+        }
+      case RecordingStatus.Recording:
+        {
+          text = 'Stop Recording';
+          break;
+        }
+      case RecordingStatus.Stopped:
+        {
+          text = 'Start Recording';
+          break;
+        }
+      default:
+        text = 'Start Recording';
+        break;
+    }
+    return Text(text, style: TextStyle(color: Colors.white));
   }
 }

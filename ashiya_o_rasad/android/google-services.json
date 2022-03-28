@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "425672472273",
+    "project_id": "fyp-audio",
+    "storage_bucket": "fyp-audio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425672472273:android:a22a99aaa778567dc837f0",
+        "android_client_info": {
+          "package_name": "com.example.ashiya_o_rasad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425672472273-ec7ap1d231m25rs98r22hsiellcbip97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdz2QTDOkECqX4yYToTkxpl5Cpb269Mng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425672472273-ec7ap1d231m25rs98r22hsiellcbip97.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425672472273:android:4163e33502067a90c837f0",
+        "android_client_info": {
+          "package_name": "com.example.vr_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425672472273-ec7ap1d231m25rs98r22hsiellcbip97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdz2QTDOkECqX4yYToTkxpl5Cpb269Mng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425672472273-ec7ap1d231m25rs98r22hsiellcbip97.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
