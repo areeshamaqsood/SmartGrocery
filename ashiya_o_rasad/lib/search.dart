@@ -13,7 +13,8 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SearchWidget extends StatefulWidget {
   LocalFileSystem localFileSystem;
@@ -411,20 +412,19 @@ class _SearchWidgetState extends State<SearchWidget> {
 
 
     // Upload local file to FireStorage (Server)
-    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    try {
-      await firebaseStorage
-          .ref('FYP-audio_1')
-          .putFile(audio);
-      print('Success');
-    } catch(error) {
-      print("Error Occured\n");
-    }
+    UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+      try {
+        await firebase_storage.FirebaseStorage.instance
+            .ref('FYP-audio_1')
+            .putFile(audio);
+      } catch (e) {
+        print('Not Working! :(');
+      }
 
     // Get Download Link
-    String downloadURL = await firebaseStorage.ref('FYP-audio_1').getDownloadURL();
+    String downloadURL = await firebase_storage.FirebaseStorage.instance.ref('FYP-audio_1').getDownloadURL();
     print(downloadURL);
-    //
+
     // // Send the link over to Flask Server
     // var output;
     // try {
