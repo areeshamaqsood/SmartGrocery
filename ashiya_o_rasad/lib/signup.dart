@@ -1,24 +1,30 @@
-//import '../auth/auth_util.dart';
 import '../variables.dart';
-
-// import '../flutter_flow/flutter_flow_theme.dart';
-// import '../flutter_flow/flutter_flow_util.dart';
-// import '../flutter_flow/flutter_flow_widgets.dart';
-// import '../login.dart';
-// import '../main.dart';
 import '../bottomnav.dart';
 import '../Welcome.dart';
-// import '../home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../variables.dart';
 
 class SignUpWidget extends StatefulWidget {
   const SignUpWidget({Key key}) : super(key: key);
 
   @override
   _SignUpWidgetState createState() => _SignUpWidgetState();
+}
+
+// Persist a new user to Firestore
+
+void CreateUser(CollectionReference users) async {
+  await users
+      .doc('${Account.email1}')
+      .set({
+        "email": Account.email1,
+        "name": Account.name1,
+        "password": Account.pass1
+      })
+      .then((_) => print('Added'))
+      .catchError((error) => print('Add failed: $error'));
 }
 
 class _SignUpWidgetState extends State<SignUpWidget> {
@@ -37,7 +43,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   void initState() {
     super.initState();
     emailAddressController = TextEditingController();
-    // emailAddressController2 = TextEditingController();
     passwordController = TextEditingController();
     NameController = TextEditingController();
     passwordVisibility = false;
@@ -105,13 +110,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     color: Color(0xFF090F13),
                                     fontWeight: FontWeight.bold,
                                   ),
-
-                                  // style: FlutterFlowTheme.title1.override(
-                                  //   fontFamily: 'Poppins',
-                                  //   color: Color(0xFF090F13),
-                                  //   fontSize: 24,
-                                  //   fontWeight: FontWeight.bold,
-                                  // ),
                                 ),
                               ),
                             ],
@@ -318,22 +316,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     20, 0, 20, 0),
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    // final user = await createAccountWithEmail(
-                                    //   context,
-                                    //   emailAddressController.text,
-                                    //   passwordController.text,
-                                    // );
-                                    // if (user == null) {
-                                    //   return;
-                                    // }
-
-                                    // await Navigator.pushAndRemoveUntil(
-                                    //   context,
-                                    // final String name1 = NameController.text;
-                                    // final String pass1 =
-                                    //     passwordController.text;
-                                    // final String email1 =
-                                    //     emailAddressController.text;
                                     added = 0;
                                     Account.name1 = NameController.text;
                                     Account.pass1 = passwordController.text;
@@ -341,65 +323,52 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         emailAddressController.text;
                                     comp = Account.email1;
                                     print('Before User $added');
-                                    // users
-                                    //     .where('email', isEqualTo: comp)
-                                    //     .get()
-                                    //     .then((_) => added = 1);
-                                    // Check if email exists
                                     await users
                                         .doc('${Account.email1}')
                                         .get()
                                         .then((DocumentSnapshot
                                             documentSnapshot) {
                                       if (documentSnapshot.exists) {
-                                        print(
-                                            'Document exists on the database');
+                                        print('User already exists');
+                                        // Show Message
+                                        SnackMessage(
+                                            context, 'User already exists!');
+                                        SnackMessage(
+                                            context, 'User Already Exists!');
+
                                         added = 1;
                                       }
                                     });
                                     print('After validating User $added');
-//                                        .catch((error) => print('Add failed'));
+
                                     NameController.text = '';
                                     passwordController.text = '';
                                     emailAddressController.text = '';
-
+                                    // If user doesnt exist
                                     if (Account.name1 != null &&
                                         Account.pass1 != null &&
                                         Account.email1 != null) {
                                       //if it doesnt exist then add and login
                                       if (added == 0) {
                                         print('Adding new User $comp, $added');
-                                        // Persist a new user to Firestore
-                                        await users
-                                            .doc('${Account.email1}')
-                                            .set({
-                                              "email": Account.email1,
-                                              "name": Account.name1,
-                                              "password": Account.pass1
-                                            })
-                                            .then((_) => print('Added'))
-                                            .catchError((error) =>
-                                                print('Add failed: $error'));
-                                        SnackBar(
-                                            content: Text(
-                                                'Enjoy your experience ${Account.name1}!'));
+                                        CreateUser(users);
+                                        // Show Message
+                                        SnackMessage(context,
+                                            'Enjoy your experience ${Account.name1}!');
                                       } else {
+                                        //if it exists
                                         print('User exists $comp, $added');
-                                        SnackBar(
-                                            content: Text(
-                                                '${Account.email1} already exists'));
+                                        SnackMessage(context,
+                                            '${Account.email1} already exists please log in');
                                       }
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) => MainScreen(),
-                                          // NavBarPage(initialPage: 'Home'),
                                         ),
-                                        //   (r) => false,
                                       );
                                     } else {
-                                      return SnackBar(
-                                          content:
-                                              Text('Information is missing'));
+                                      SnackMessage(
+                                          context, 'Information is missing');
                                     }
                                   },
                                   child: Text('Sign Up',

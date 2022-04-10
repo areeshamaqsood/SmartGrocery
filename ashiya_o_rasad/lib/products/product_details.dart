@@ -40,12 +40,14 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                   child: Stack(
                     alignment: AlignmentDirectional(0, -1),
                     children: [
+                      // Image of product
                       Image.asset(
-                        'assets/images/Products/Lipton Yellow Label.png',
+                        'assets/images/ProductTypes/${(Category.viewProduct[0].last)}.png',
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: MediaQuery.of(context).size.height * 0.6,
                         fit: BoxFit.contain,
                       ),
+                      // Back button
                       Align(
                         alignment: AlignmentDirectional(0, 0),
                         child: Padding(
@@ -146,7 +148,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                         ],
                       ),
                     ),
-
+                    // Display other details i.e Type
                     if (Category.viewProduct.length > 3)
                       // print("Category length = ${Category.viewProduct.length}");
                       Padding(
@@ -209,9 +211,15 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                               fontWeight: FontWeight.w600),
                         ),
                         new IconButton(
-                            icon: new Icon(Icons.add),
-                            onPressed: () =>
-                                setState(() => countControllerValue++))
+                          icon: new Icon(Icons.add),
+                          onPressed: () {
+                            // print(Category.viewProduct[0].last);
+
+                            setState(() {
+                              countControllerValue++;
+                            });
+                          },
+                        ),
                       ],
                     ),
                     // Add to Cart button
@@ -226,21 +234,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                             onPressed: () async {
                               Cart.ProdCart.add(Category.viewProduct[0]);
                               Cart.ProdQty.add(countControllerValue);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Added To Cart',
-                                    style: GoogleFonts.getFont(
-                                      'Poppins',
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor: Colors.white,
-                                ),
-                              );
+                              SnackMessage(context, 'Added to Cart');
                             },
                             child: Text('Add To Cart',
                                 style: GoogleFonts.poppins(

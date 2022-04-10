@@ -143,19 +143,8 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                           print(
                               'Sorry, no products yet for ${Category.ProductTypes[index]}');
 
-                          var snackBar = SnackBar(
-                            content: Text(
-                              'Sorry, no products yet for ${Category.ProductTypes[index]}',
-                              style: GoogleFonts.poppins(
-                                fontSize: 15.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            duration: Duration(milliseconds: 1500),
-                            backgroundColor: Colors.red,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          SnackMessage(context,
+                              'Sorry, no products yet for ${Category.ProductTypes[index]}');
                         } else {
                           print("We found it: ${Category.ProdMap[key]}");
                           Category.Products.add(Category.ProdMap[key]);

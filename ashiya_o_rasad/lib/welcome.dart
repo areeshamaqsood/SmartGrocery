@@ -1,23 +1,10 @@
 import 'package:ashiya_o_rasad/bottomnav.dart';
-// import 'package:ashiya_o_rasad/home.dart';
-
 import '../auth/auth_util.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
-// import '../flutter_flow/flutter_flow_theme.dart';
-// import '../flutter_flow/flutter_flow_util.dart';
-// import '../flutter_flow/flutter_flow_widgets.dart';
-// import '../login.dart';
 import '../signup.dart';
 import '../login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-
-//final FirebaseAuth _auth = FirebaseAuth.instance;
+import '../variables.dart';
 
 class WelcomeWidget extends StatefulWidget {
   const WelcomeWidget({Key key}) : super(key: key);
@@ -28,13 +15,6 @@ class WelcomeWidget extends StatefulWidget {
 
 class _WelcomeWidgetState extends State<WelcomeWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // GlobalKey<FormState> _userLoginFormKey = GlobalKey();
-  // FirebaseUser _user;
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
-  // final GoogleSignIn _googleSignIn = GoogleSignIn();
-  // bool isSignIn = false;
-  // bool google = false;
 
   @override
   Widget build(BuildContext context) {
@@ -120,21 +100,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                       ),
                                     );
                                   });
-                                  /*
-                                  final FirebaseUser user = await _auth.currentUser();
-                                  final user = await signInWithGoogle(context);
-                                  if (user == null) {
-                                    return;
-                                  }
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      // builder: (context) => NavBarPage(initialPage: 'Home'),
-                                      builder: (context) => const HomeWidget(),
-                                    ),
-                                    (r) => false,
-                                  );
-                                  */
                                 },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(370, 44),
@@ -161,6 +126,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                       ),
                     ),
                   ),
+                  // Create an Account button
                   Align(
                     alignment: AlignmentDirectional(0, 0),
                     child: Padding(
@@ -174,6 +140,8 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                               alignment: AlignmentDirectional(0, 0),
                               child: ElevatedButton.icon(
                                 onPressed: () {
+                                  SnackMessage(
+                                      context, "Inside Create an account");
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
@@ -182,21 +150,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                     ),
                                   );
                                 },
-                                /*async {
-                                  final user = await signInWithGoogle(context);
-                                  if (user == null) {
-                                    return;
-                                  }
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      // builder: (context) => NavBarPage(initialPage: 'Home'),
-                                      builder: (context) => const HomeWidget(),
-                                    ),
-                                    (r) => false,
-                                  );
-                                },
-                                */
                                 label: Text('Create an Account',
                                     style: GoogleFonts.poppins(
                                       fontSize: 15,

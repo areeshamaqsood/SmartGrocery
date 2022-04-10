@@ -1,16 +1,13 @@
-import '../auth/auth_util.dart';
-// import '../flutter_flow/flutter_flow_theme.dart';
-// import '../flutter_flow/flutter_flow_util.dart';
-// import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login.dart';
-import '../main.dart';
+// import '../auth/auth_util.dart';
+// import '../login.dart';
+// import '../main.dart';
 import '../bottomnav.dart';
 import '../Welcome.dart';
-import '../home.dart';
+// import '../home.dart';
 import '../variables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -22,7 +19,6 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   TextEditingController emailAddressController;
-  // TextEditingController emailAddressController2;
   TextEditingController passwordController;
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -35,8 +31,8 @@ class _LoginWidgetState extends State<LoginWidget> {
   void initState() {
     super.initState();
     emailAddressController = TextEditingController();
-    // emailAddressController2 = TextEditingController();
     passwordController = TextEditingController();
+    // This is just used for debugging purposes for now
     emailAddressController.text = "test";
     passwordController.text = "1234";
     passwordVisibility = false;
@@ -265,6 +261,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         .then((DocumentSnapshot
                                             documentSnapshot) {
                                       if (documentSnapshot.exists) {
+                                        // If user ecists
                                         Map<String, dynamic> data =
                                             documentSnapshot.data()
                                                 as Map<String, dynamic>;
@@ -287,31 +284,26 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                                     if (Account.pass1 != null &&
                                         Account.email1 != null) {
-                                      //if it doesnt exist then add and login
+                                      // If user doesnt exists
                                       if (added == 0) {
                                         print(
                                             'User doesnt exist $comp, $added');
-                                        SnackBar(
-                                            content: Text(
-                                                'Account${Account.name1} does not exist!'));
+                                        SnackMessage(context,
+                                            'Account${Account.name1} does not exist!');
                                       } else {
                                         await fetchproducts();
                                         print('User exists $comp, $added');
-                                        SnackBar(
-                                            content: Text(
-                                                'Welcome back ${Account.email1}!'));
+                                        SnackMessage(context,
+                                            'Welcome back ${Account.email1}!');
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) => MainScreen(),
-                                            // NavBarPage(initialPage: 'Home'),
                                           ),
-                                          //   (r) => false,
                                         );
                                       }
                                     } else {
-                                      return SnackBar(
-                                          content:
-                                              Text('Information is missing'));
+                                      return SnackMessage(
+                                          context, 'Information is missing!');
                                     }
                                   },
                                   child: Text('Login',

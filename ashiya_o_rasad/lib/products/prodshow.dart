@@ -1,7 +1,5 @@
-import 'package:ashiya_o_rasad/home.dart';
-import 'package:ashiya_o_rasad/categories.dart';
-// import '../flutter_flow/flutter_flow_theme.dart';
-// import '../flutter_flow/flutter_flow_util.dart';
+// import 'package:ashiya_o_rasad/home.dart';
+// import 'package:ashiya_o_rasad/categories.dart';
 // import '../main.dart';
 import '../variables.dart';
 import '/products/prodcat.dart';
@@ -10,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // import 'package:ashiya_o_rasad/bottomnav.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProductShowWidget extends StatefulWidget {
   const ProductShowWidget({Key key}) : super(key: key);
@@ -36,7 +34,7 @@ class _ProductShowWidgetState extends State<ProductShowWidget> {
         ),
         backgroundColor: Colors.white,
         leading: GestureDetector(
-          // Go back to Home Page
+          // Go back to Categories Page
           onTap: () async {
             await Navigator.push(
               context,
@@ -164,22 +162,7 @@ class _ProductShowWidgetState extends State<ProductShowWidget> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () async {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Added To Cart',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 15.0,
-                                  color: Colors.grey[800],
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor: Colors.white,
-                            ),
-                          );
-                          Category.viewProduct[0] = ind;
-                          print(Category.viewProduct);
+                          SnackMessage(context, 'Added to Cart');
                         },
                         label: Text('Add To Cart',
                             style: GoogleFonts.poppins(
@@ -198,62 +181,6 @@ class _ProductShowWidgetState extends State<ProductShowWidget> {
                 ],
               ),
             );
-            /*
-            return InkWell(
-              child: Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  //Define Inside Components
-                  children: [
-                    //Positioning Image on box
-                    Container(
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                      ),
-                      child: Image.asset(
-                        'assets/images/ProductTypes/' +
-                            Category.currentproductcat +
-                            '.png',
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    //Positioning Category name under box
-                    Align(
-                      alignment: AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
-                        child: Text(
-                          ind[0],
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // On Tap what will happen
-              onTap: () {
-                // print(prodprice());
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProductDetailsWidget()),
-                );
-              },
-            );
-            */
           },
         ),
       ),

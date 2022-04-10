@@ -283,20 +283,7 @@ class _AboutMeWidgetState extends State<AboutMeWidget> {
                           .then((value) => print("User Updated"))
                           .catchError((error) =>
                               print("Failed to update user: $error"));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Changes Saved',
-                            style: GoogleFonts.poppins(
-                              fontSize: 15.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          duration: Duration(milliseconds: 4000),
-                          backgroundColor: Colors.white,
-                        ),
-                      );
+                      SnackMessage(context, 'Changes saved');
                     },
                     child: Text('Save Changes',
                         style: GoogleFonts.poppins(
