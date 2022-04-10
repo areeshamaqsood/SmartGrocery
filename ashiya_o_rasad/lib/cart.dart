@@ -19,6 +19,7 @@ Future<void> addProduct(CollectionReference orderprod, String ID,
         'Price': prod2[1],
         'Size': prod2[2],
         'ProductQuantity': prodqty1,
+        'ProductType': prod2.last,
       })
       .then((value) => print("Product Added"))
       .catchError((error) => print("Failed to add product: $error"));
@@ -31,8 +32,8 @@ Future<void> taketoorder() async {
   // bool orderadded = checkorder(orders);
   if (Order.confirm) {
     print("User made");
-    print("Before getting Docuemnt ID");
-    print("After getting Docuemnt ID");
+    print("Before getting Document ID");
+    // print("After getting Docuemnt ID");
     print("OrdersCount = ${Order.ordcount}");
     // Add New Order
     Order.ordcount++;

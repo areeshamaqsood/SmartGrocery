@@ -41,7 +41,6 @@ class _AllProductsState extends State<AllProducts> {
           // print("k1 = ${k1}");
           // Get product details against key of product in productmap i.e [Dawn, Rs 85, Small, Whole Wheat, Bread]
           prod1 = ProdMap[k1];
-          // print("prod1 = ${prod1}");
           return Card(
             child: Column(
               children: [

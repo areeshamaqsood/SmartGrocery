@@ -45,10 +45,6 @@ class _SearchWidgetState extends State<SearchWidget> {
   }
 
   bool searchdone = false;
-  // int changesearch() {
-  //   setState(() {});
-  //   return 1;
-  // }
 
   String searchString = "";
   @override
@@ -203,6 +199,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                         onFieldSubmitted: (value) {
                                           setState(() {
                                             searchdone = false;
+                                            print(Category.ProdMap);
                                           });
 
                                           Search.SearchMap.clear();
@@ -212,11 +209,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                                             searchdone = true;
                                           });
                                         },
-                                        // onChanged: (value) {
-                                        //   setState(() {
-                                        //     // searchString = value.toLowerCase();
-                                        //   });
-                                        // },
                                       ),
                                     ),
                                   ),
