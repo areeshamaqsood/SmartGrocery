@@ -60,6 +60,48 @@ def getAudioFile():
         # Corrected Word
         corrected_word = spell.correction(predicted_word[0])
 
+        # Translating words to English
+        if corrected_word == 'أتار':
+            corrected_word = 'Pickle'
+        elif corrected_word == 'عندي' or corrected_word == 'أندي':
+            corrected_word = 'Egg'
+        elif corrected_word == 'بسن' or corrected_word == 'بيسن':
+            corrected_word = 'Baisan'
+        elif corrected_word == 'جني' or corrected_word == 'شاني':
+            corrected_word = 'Chickpeas'
+        elif corrected_word == 'أتى' or corrected_word == 'أعتا':
+            corrected_word = 'Flour'
+        elif corrected_word == 'شعول' or corrected_word == 'جاول':
+            corrected_word = 'Rice'
+        elif corrected_word == 'جيني':
+            corrected_word = 'Sugar'
+        elif corrected_word == 'دبروتي' or corrected_word == 'دبل روتي':
+            corrected_word = 'Bread'
+        elif corrected_word == 'دهي':
+            corrected_word = 'Youghurt'
+        elif corrected_word == 'دود':
+            corrected_word = 'Milk'
+        elif corrected_word == 'إلعَيْتي' or corrected_word == 'إلعيتي' or \
+                corrected_word == 'إِلَ عَيْتِي' or corrected_word == 'إلى أيتي':
+            corrected_word = 'Elaichi'
+        elif corrected_word == 'كي' or corrected_word == 'غي' or \
+                corrected_word == 'تيل':
+            corrected_word = 'Fats'
+        elif corrected_word == 'حل دي' or corrected_word == 'حلدي':
+            corrected_word = 'Haldi'
+        elif corrected_word == 'إملي':
+            corrected_word = 'Imli'
+        elif corrected_word == 'نمك':
+            corrected_word = 'Salt'
+        elif corrected_word == 'بتي':
+            corrected_word = 'Tea'
+        elif corrected_word == 'صاب' or corrected_word == 'سعب':
+            corrected_word = 'Soap'
+        elif corrected_word == 'سركا':
+            corrected_word = 'Vinegar'
+        elif corrected_word == 'سرف':
+            corrected_word = 'Ariel'
+
         print(corrected_word)
 
         return corrected_word

@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 // Information about Search Query
 class Search {
   static Map<String, List<String>> SearchMap = {};
+  static String searchQuery;
 }
 
 // Information for order items
