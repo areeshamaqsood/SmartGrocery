@@ -426,15 +426,15 @@ class _SearchWidgetState extends State<SearchWidget> {
     String downloadURL = await firebase_storage.FirebaseStorage.instance.ref('FYP-audio_1').getDownloadURL();
     print(downloadURL);
 
-    // // Send the link over to Flask Server
+    // Send the link over to Flask Server
     var output;
     try {
       var response = await http.post(Uri.parse('http://10.0.2.2:5000/api'),
           body: {'downloadLink': downloadURL, 'ref': 'FYP-audio_1'});
       // String output_word = JsonDecoder(response.body);
-      setState(() {
-        outputText = response.body;
-      });
+      // setState(() {
+      //   outputText = response.body;
+      // });
       output = response.body;
       print(response.body);
     } catch(e) {

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df7b814b-6cd2-4849-af71-b31881e18fa3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ASR.py" beforeDir="false" afterPath="$PROJECT_DIR$/ASR.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ashiya_o_rasad/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ashiya_o_rasad/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/audio.wav" beforeDir="false" afterPath="$PROJECT_DIR$/audio.wav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

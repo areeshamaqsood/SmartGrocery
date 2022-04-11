@@ -7,8 +7,13 @@ import librosa
 import torch
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 from spellchecker import SpellChecker
+from scipy.io import wavfile
+
 
 app = Flask(__name__)
+
+data = librosa.load('audio.wav', sr=16000, mono=True)
+print(data)
 
 # Load model from the internet
 MODEL_ID = "jonatasgrosman/wav2vec2-large-xlsr-53-arabic"
@@ -23,7 +28,6 @@ def getAudioFile():
     # Download the audio file from Cloud Storage using 
     # the http link sent through POST request
     if request.method == 'POST':
-        print("Hello")
         audioLink = request.form['downloadLink']
         print(audioLink)
 
@@ -34,6 +38,7 @@ def getAudioFile():
 
         # Load the audio file
         data = librosa.load('audio.wav', sr=16000, mono=True)
+        # samplerate, data = wavfile.read('audio.wav')
 
         print("Processing...")
 
@@ -53,7 +58,7 @@ def getAudioFile():
             'كي', 'غي', 'حل دي', 'حلدي', 'إملي', 'نمك', 'بتي', 'صاب', 'سعب', 'سركا', 'سرف', 'تيل']
 
         # Create an object of spellchecker
-        # Checks and correctes spellings to upto 5 edit distance (Levenshtiens)
+        # Checks and corrects spellings to up to 5 edit distance (Levenshtein)
         # Loads the self made dictionary of words
         spell = SpellChecker(distance=5)
         spell.word_frequency.load_words(word_list)
