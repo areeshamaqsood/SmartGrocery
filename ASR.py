@@ -103,6 +103,7 @@ def getAudioFile():
         elif corrected_word == 'سرف':
             corrected_word = 'Ariel'
 
+
         print(corrected_word)
 
         return corrected_word
