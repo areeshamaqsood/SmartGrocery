@@ -19,15 +19,13 @@ class Order {
 // Check if the user has ordered before if not then add user
 Future<void> checkorder() async {
   final CollectionReference orders =
-      FirebaseFirestore.instance.collection('Order3');
+      FirebaseFirestore.instance.collection('Order');
 
-  // print("before call");
-  // var orderID = orders.doc(Account.email1).get();
+  print("See if Document exists...");
   await orders.doc(Account.email1).get().then((DocumentSnapshot doc1) {
-    // if (!orderID.exists) {
-    // print("after call");
-
     if (!doc1.exists) {
+      // Add User
+      print("Adding User...");
       orders
           .doc(Account.email1)
           .set({'email': "${Account.email1}", 'ordercount': 0})
@@ -36,17 +34,15 @@ Future<void> checkorder() async {
       Order.ordcount = 0;
       Order.confirm = true;
     } else {
+      print("User Already Exists");
       Order.confirm = true;
       Order.ordcount = doc1["ordercount"];
     }
   });
-  // print("returning");
   if (!Order.confirm) {
     print("false returning");
-    // return false;
   } else {
     print("true returning");
-    // return true;
   }
 }
 
@@ -56,6 +52,9 @@ class Cart {
   static List<List<String>> ProdCart = [];
   // Stores each product quantity
   static List<int> ProdQty = [];
+  // Stores id of product
+  static List<String> ProdID = [];
+  static String Prodid1;
 }
 
 // Stores information about the current account being logged in
@@ -243,7 +242,9 @@ Map<int, String> prodprice() {
   return prodprice;
 }
 
-// Extra functions
+//////////////// Extra functions
+
+// Snackbar messages
 void SnackMessage(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

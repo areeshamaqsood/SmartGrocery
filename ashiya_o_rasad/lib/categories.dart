@@ -1,8 +1,3 @@
-// import 'package:ashiya_o_rasad/home.dart';
-
-// import '../flutter_flow/flutter_flow_theme.dart';
-// import '../flutter_flow/flutter_flow_util.dart';
-// import '../main.dart';
 import '../variables.dart';
 import '../products/prodcat.dart';
 import 'package:flutter/material.dart';

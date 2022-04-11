@@ -54,6 +54,7 @@ class _AllProductsState extends State<AllProducts> {
                     List<String> y = [];
                     y = ProdMap[x];
                     // print("y: ${y}");
+                    Cart.Prodid1 = x;
                     Category.viewProduct.add(y);
                     await Navigator.push(
                       context,
@@ -146,10 +147,13 @@ class _AllProductsState extends State<AllProducts> {
                         List<String> y = [];
                         y = ProdMap[x];
                         // print("y: ${y}");
+                        print(x);
                         Cart.ProdCart.add(y);
-                        // print("ProdCart: ${Cart.ProdCart}");
-                        // print(ProdMap[index]);
+                        print("Added to ProdCart: ${Cart.ProdCart}");
                         Cart.ProdQty.add(1);
+                        print("Added to ProdQty: ${Cart.ProdQty}");
+                        Cart.ProdID.add(x);
+                        print("Added to ProdID: ${Cart.ProdID}");
                         SnackMessage(context, "Added to Cart");
                       },
                       label: Text('Add To Cart',
@@ -222,6 +226,7 @@ class _SearchProductsState extends State<SearchProducts> {
                     List<String> y = [];
                     y = SearchMap[x];
                     // print("y: ${y}");
+                    Cart.Prodid1 = x;
                     Category.viewProduct.add(y);
                     await Navigator.push(
                       context,
@@ -315,9 +320,11 @@ class _SearchProductsState extends State<SearchProducts> {
                         y = SearchMap[x];
                         // print("y: ${y}");
                         Cart.ProdCart.add(y);
-                        // print("ProdCart: ${Cart.ProdCart}");
-                        // print(ProdMap[index]);
+                        print("Added to ProdCart: ${Cart.ProdCart}");
                         Cart.ProdQty.add(1);
+                        print("Added to ProdQty: ${Cart.ProdQty}");
+                        Cart.ProdID.add(x);
+                        print("Added to ProdID: ${Cart.ProdID}");
                         // Show Message
                         SnackMessage(context, "Add to Cart");
                       },

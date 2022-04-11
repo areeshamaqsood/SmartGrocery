@@ -11,18 +11,12 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // void build(BuildContext context) => MaterialApp(home: WelcomeWidget());
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // routes: Navigate.routes,
       title: 'Ashiya o Rasad',
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      // ),
-      // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      // home: WelcomeWidget(),
       initialRoute: '/',
       routes: {
         '/': (context) => WelcomeWidget(),

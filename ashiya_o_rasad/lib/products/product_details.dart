@@ -1,10 +1,4 @@
-// import '../flutter_flow/flutter_flow_count_controller.dart';
-// import '../flutter_flow/flutter_flow_icon_button.dart';
-// import '../flutter_flow/flutter_flow_theme.dart';
-// import '../flutter_flow/flutter_flow_util.dart';
-// import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../variables.dart';
 
@@ -234,6 +228,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                             onPressed: () async {
                               Cart.ProdCart.add(Category.viewProduct[0]);
                               Cart.ProdQty.add(countControllerValue);
+                              Cart.ProdID.add(Cart.Prodid1);
                               SnackMessage(context, 'Added to Cart');
                             },
                             child: Text('Add To Cart',

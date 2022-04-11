@@ -9,17 +9,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Add each product against each order
 Future<void> addProduct(CollectionReference orderprod, String ID,
-    List<String> prod2, int prodqty1) {
-  return orderprod
+    List<String> prod2, int prodqty1, String prodid) async {
+  return await orderprod
       .doc(ID)
       .set({
         'InvoiceID': ID,
-        'OrderNo': Order.ordcount,
+        'OrderNo': "O${Order.ordcount}",
         'ProductName': prod2[0],
         'Price': prod2[1],
         'Size': prod2[2],
         'ProductQuantity': prodqty1,
         'ProductType': prod2.last,
+        'ProductID': prodid,
       })
       .then((value) => print("Product Added"))
       .catchError((error) => print("Failed to add product: $error"));
@@ -28,12 +29,11 @@ Future<void> addProduct(CollectionReference orderprod, String ID,
 // Perform action after "Proceeding to checkout"
 Future<void> taketoorder() async {
   final CollectionReference orders =
-      FirebaseFirestore.instance.collection('Order3');
+      FirebaseFirestore.instance.collection('Order');
   // bool orderadded = checkorder(orders);
   if (Order.confirm) {
     print("User made");
     print("Before getting Document ID");
-    // print("After getting Docuemnt ID");
     print("OrdersCount = ${Order.ordcount}");
     // Add New Order
     Order.ordcount++;
@@ -48,25 +48,25 @@ Future<void> taketoorder() async {
     orders
         .doc(Account.email1)
         .collection(ordnew)
-        .add({"productcount": Cart.ProdQty.length});
+        .add({"productcount": Cart.ProdCart.length});
     CollectionReference orderprod =
         orders.doc(Account.email1).collection(ordnew);
     //Add each product id
-    // print("Product ID = ${value.id}");
     print("Order Created");
-    for (var i = 0; i < Cart.ProdQty.length; i++) {
-      int x = i + 1;
+    for (var i = 0; i < Cart.ProdCart.length; i++) {
+      int x = i + 1; //
+      // print()
+      print('${Cart.ProdCart[i]} , ${Cart.ProdQty[i]}');
       var prodnew = "ID" + x.toString();
       // Add new product
-      addProduct(orderprod, prodnew, Cart.ProdCart[x - 1], Cart.ProdQty[x - 1]);
+      addProduct(orderprod, prodnew, Cart.ProdCart[i], Cart.ProdQty[i],
+          Cart.ProdID[i]);
     }
-    // print("${Cart.ProdCart[i]}, ${Cart.ProdQty[i]}");
-    // }).catchError((_) {
-    //   print("Order Not Created");
-    // });
   }
+  print('Cart Length = ${Cart.ProdCart.length}');
   await Cart.ProdCart.clear();
   await Cart.ProdQty.clear();
+  await Cart.ProdID.clear();
 }
 
 // Calculate price against each cart item wth their value
@@ -341,6 +341,8 @@ class _CartWidgetState extends State<CartWidget> {
                                                 onPressed: () {
                                                   //delete action for this button
                                                   Cart.ProdCart.removeAt(index);
+                                                  Cart.ProdQty.removeAt(index);
+                                                  Cart.ProdID.removeAt(index);
                                                   setState(() {
                                                     //refresh UI after deleting element from list
                                                   });
@@ -499,6 +501,8 @@ class _CartWidgetState extends State<CartWidget> {
                                         taketoorder();
                                         setState(() {
                                           Cart.ProdCart.clear();
+                                          Cart.ProdQty.clear();
+                                          Cart.ProdID.clear();
                                         });
                                       } else {
                                         SnackMessage(context,
@@ -514,8 +518,6 @@ class _CartWidgetState extends State<CartWidget> {
                                         primary: Color(0xFF28b446)),
                                   ),
                                 ),
-                                //   }
-                                // }())
                               ],
                             ),
                           ),

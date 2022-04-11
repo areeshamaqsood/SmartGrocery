@@ -38,9 +38,8 @@ class _ProductShowWidgetState extends State<ProductShowWidget> {
           onTap: () async {
             await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProductCategoriesWidget()
-                  // NavBarPage(initialPage: 'Home'),
-                  ),
+              MaterialPageRoute(
+                  builder: (context) => ProductCategoriesWidget()),
             );
           },
           child: Icon(
