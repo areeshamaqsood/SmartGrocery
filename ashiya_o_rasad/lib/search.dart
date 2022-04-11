@@ -432,9 +432,7 @@ class _SearchWidgetState extends State<SearchWidget> {
       var response = await http.post(Uri.parse('http://10.0.2.2:5000/api'),
           body: {'downloadLink': downloadURL, 'ref': 'FYP-audio_1'});
       // String output_word = JsonDecoder(response.body);
-      setState(() {
-        outputText = response.body;
-      });
+      // setState(() {
       output = response.body;
       print(response.body);
     } catch(e) {
