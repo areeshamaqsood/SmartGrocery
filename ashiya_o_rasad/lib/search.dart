@@ -15,6 +15,7 @@ import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 
 class SearchWidget extends StatefulWidget {
   LocalFileSystem localFileSystem;
@@ -426,19 +427,19 @@ class _SearchWidgetState extends State<SearchWidget> {
     print(downloadURL);
 
     // // Send the link over to Flask Server
-    // var output;
-    // try {
-    //   var response = await http.post(Uri.parse('http://10.0.2.2:5000/api'),
-    //       body: {'downloadLink': downloadURL, 'ref': 'FYP-audio_1'});
-    //   // String output_word = JsonDecoder(response.body);
-    //   setState(() {
-    //     outputText = response.body;
-    //   });
-    //   output = response.body;
-    //   print(response.body);
-    // } catch(e) {
-    //   print(e);
-    // }
+    var output;
+    try {
+      var response = await http.post(Uri.parse('http://10.0.2.2:5000/api'),
+          body: {'downloadLink': downloadURL, 'ref': 'FYP-audio_1'});
+      // String output_word = JsonDecoder(response.body);
+      setState(() {
+        outputText = response.body;
+      });
+      output = response.body;
+      print(response.body);
+    } catch(e) {
+      print(e);
+    }
 
   }
 
