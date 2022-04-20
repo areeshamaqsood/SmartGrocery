@@ -552,21 +552,21 @@ class _SearchWidgetState extends State<SearchWidget> {
     switch (_currentStatus) {
       case RecordingStatus.Initialized:
         {
-          text = 'Start Recording';
+          text = 'Start Search';
           break;
         }
       case RecordingStatus.Recording:
         {
-          text = 'Stop Recording';
+          text = 'Stop Search';
           break;
         }
       case RecordingStatus.Stopped:
         {
-          text = 'Start Recording';
+          text = 'Start Search';
           break;
         }
       default:
-        text = 'Start Recording';
+        text = 'Start Search';
         break;
     }
     return Text(text, style: TextStyle(color: Colors.white));

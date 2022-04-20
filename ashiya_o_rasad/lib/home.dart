@@ -1,10 +1,14 @@
 import 'package:ashiya_o_rasad/search.dart';
 import 'package:ashiya_o_rasad/categories.dart';
+import 'cart.dart';
 import 'variables.dart';
 import 'ashwidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'API.dart';
+import 'dart:convert';
+import 'login.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key key}) : super(key: key);
@@ -43,6 +47,9 @@ class _HomeWidgetState extends State<HomeWidget> {
   // TextEditingController searchFieldController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var ord = [];
+  var gdata;
+  String url;
+  Map<String, dynamic> QueryText = {};
 
   void getOrd() async {
     var collection = FirebaseFirestore.instance.collection('Orders');
@@ -135,8 +142,30 @@ class _HomeWidgetState extends State<HomeWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                         child: ElevatedButton.icon(
-                          onPressed: () {
+                          onPressed: () async {
                             print("Generate Grocery List");
+                            url = 'http://10.0.2.2:5000/recomm?Query=' + "test2";
+                            // Account.email1.toString();
+                            gdata = await getData(url);
+                            // print(gdata.toString());
+                            var decodedData = jsonDecode(gdata);
+                            print("decodedData: ${decodedData}");
+                            setState(() {
+                              QueryText = decodedData['Query'];
+                            });
+                            print("QueryText: ${QueryText}");
+                            for (var v in decodedData['ProductID']) {
+                              print(v);
+                              Cart.ProdCart.add(Category.ProdMap[v]);
+                              Cart.ProdQty.add(1);
+                              // Cart.ProdID.add(v);
+                            }
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CartWidget()
+                              ),
+                            );
                           },
                           label: Text('Generate Grocery List',
                               style: GoogleFonts.poppins(

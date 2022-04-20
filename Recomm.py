@@ -10,12 +10,14 @@ from firebase_admin import credentials, firestore
 Making the firebase connection here to get the list of orders from the customers and 
 run the recommender system on that 
 """
-cred = credentials.Certificate("/Users/areeshamaqsood/Desktop/desktop/FYP/Recommender System/My_Private_Key.json")
+cred = credentials.Certificate("C:/Users/Kamal Qureshi/Documents/GitHub/SmartGrocery/My_Private_Key.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
 """For specific user"""
+
+
 def forEachUser(username):
     arr = []
     print("HERE")
@@ -28,12 +30,15 @@ def forEachUser(username):
                 arr.append(doc.to_dict())
     return arr
 
+
 """
 This is where the item matrix is being placed which shows
 how much of the quantity of each item is present in that
 specific order no receipt
 This matrix is the "engine" of the Recommender System
 """
+
+
 def getCorrelations(username):
     newDict = {}
     count = 0
@@ -56,7 +61,8 @@ def getCorrelations(username):
             max = newDict[key]
             maxWord = key
     print("MAX WORD: ", maxWord)
-    csv_columns = ['InvoiceID', 'OrderNo', 'Price','ProductID' ,'ProductName','ProductQuantity', 'ProductType','Size']
+    csv_columns = ['InvoiceID', 'OrderNo', 'Price', 'ProductID', 'ProductName', 'ProductQuantity', 'ProductType',
+                   'Size']
     csv_file = "ashiya.csv"
     try:
         with open(csv_file, 'w') as csvfile:
@@ -67,10 +73,10 @@ def getCorrelations(username):
     except IOError:
         print("I/O error")
 
-    df = pd.read_csv('/Users/areeshamaqsood/Desktop/desktop/FYP/iteration 3/FlaskApp/ashiya.csv')
+    df = pd.read_csv('C:/Users/Kamal Qureshi/Documents/GitHub/SmartGrocery/ashiya.csv')
     # print(df.head())
 
-    df_orders = df[['InvoiceID', 'OrderNo' , 'ProductID', 'ProductQuantity']]
+    df_orders = df[['InvoiceID', 'OrderNo', 'ProductID', 'ProductQuantity']]
     # print(df_orders.head())
     # print("")
 
@@ -78,12 +84,13 @@ def getCorrelations(username):
     #     invoice=('OrderNo', 'nunique'),
     #     quantity=('ProductQuantity', 'sum')
     # ).sort_values(by='invoice', ascending=False).head()
-    
+
     df_items = df_orders.pivot_table(index='OrderNo', columns=['ProductID'], values='ProductQuantity').fillna(0)
     recommendations = recommender_function(df_items, maxWord)
     # print(recommendations.head())
 
     return recommendations
+
 
 """ 
 This function shows which product is associated to others
@@ -91,16 +98,18 @@ Mostly what the other users get with this product
 Using the Pearson's Coefficient Method
 This where we are using the ITEM BASED COLLABORATIVE FILTERING
 """
+
+
 def recommender_function(df, item):
-    
     recommend_products = df.corrwith(df[item])
     recommend_products.dropna(inplace=True)
     recommend_products = pd.DataFrame(recommend_products, columns=['correlation']).reset_index()
     recommend_products = recommend_products.sort_values(by='correlation', ascending=False)
 
     recommend_products = recommend_products.drop(recommend_products.index[recommend_products['correlation'] < 0])
-    
+
     return recommend_products
+
 
 def main():
     results = getCorrelations("test2")
@@ -109,6 +118,7 @@ def main():
     # print(results)
     print("toDict:")
     print(toDict)
+
 
 if __name__ == "__main__":
     main()

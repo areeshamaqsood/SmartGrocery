@@ -7,6 +7,8 @@ import librosa
 import torch
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 from spellchecker import SpellChecker
+from inspect import getclosurevars
+import Recomm
 
 app = Flask(__name__)
 
@@ -16,11 +18,11 @@ MODEL_ID = "jonatasgrosman/wav2vec2-large-xlsr-53-arabic"
 processor = Wav2Vec2Processor.from_pretrained(MODEL_ID)
 model = Wav2Vec2ForCTC.from_pretrained(MODEL_ID)
 
+
 # Load API on call
 @app.route('/api', methods=['POST'])
 def getAudioFile():
-
-    # Download the audio file from Cloud Storage using 
+    # Download the audio file from Cloud Storage using
     # the http link sent through POST request
     if request.method == 'POST':
         audioLink = request.form['downloadLink']
@@ -48,8 +50,8 @@ def getAudioFile():
 
         # Dictionary of words for our Grocery dataset
         word_list = ['أتار', 'عندي', 'أندي', 'بسن', 'بيسن', 'جني', 'شاني', 'أتى', 'أعتا', 'شعول', 'جاول',
-            'جيني', 'دبروتي', 'دبل روتي', 'دهي', 'دود', 'إلعَيْتي', 'إلعيتي', 'إِلَ عَيْتِي', 'إلى أيتي',
-            'كي', 'غي', 'حل دي', 'حلدي', 'إملي', 'نمك', 'بتي', 'صاب', 'سعب', 'سركا', 'سرف', 'تيل']
+                     'جيني', 'دبروتي', 'دبل روتي', 'دهي', 'دود', 'إلعَيْتي', 'إلعيتي', 'إِلَ عَيْتِي', 'إلى أيتي',
+                     'كي', 'غي', 'حل دي', 'حلدي', 'إملي', 'نمك', 'بتي', 'صاب', 'سعب', 'سركا', 'سرف', 'تيل']
 
         # Create an object of spellchecker
         # Checks and correctes spellings to upto 5 edit distance (Levenshtiens)
@@ -105,6 +107,22 @@ def getAudioFile():
         print(corrected_word)
 
         return corrected_word
+
+@app.route('/recomm', methods=['GET'])
+def home():
+    # return "Hello, Flask!"
+    d1 = {}
+    d1['Query'] = str(request.args['Query'])
+    print("QUERY GET: ", d1['Query'])
+    # RS.forEachUser(d1['Query'])
+    results = Recomm.getCorrelations(d1['Query'])
+    toDict = results.to_dict('list')
+    # print("results:")
+    # print(results)
+    print("toDict:")
+    # toDict= results.set_index('ProductName')['correlation'].to_dict()
+    print(toDict)
+    return jsonify(toDict)
 
 
 if __name__ == "__main__":
