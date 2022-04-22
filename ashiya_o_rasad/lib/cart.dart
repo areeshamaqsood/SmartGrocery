@@ -504,6 +504,7 @@ class _CartWidgetState extends State<CartWidget> {
                                           Cart.ProdQty.clear();
                                           Cart.ProdID.clear();
                                         });
+                                        SnackMessage(context, 'Order Placed');
                                       } else {
                                         SnackMessage(context,
                                             'Please add products first!');
