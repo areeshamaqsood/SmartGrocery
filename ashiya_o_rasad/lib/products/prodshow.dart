@@ -92,8 +92,8 @@ class _ProductShowWidgetState extends State<ProductShowWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                 child: Image.asset(
-                                  'assets/images/ProductTypes/' +
-                                      Category.currentproductcat +
+                                  'assets/images/Products/' +
+                                      ind[0] +
                                       '.png',
                                   width: 75,
                                   height: 75,

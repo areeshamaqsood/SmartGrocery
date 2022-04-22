@@ -59,6 +59,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   void initState() {
     super.initState();
     setState(() {
+      GetHealth();
       print("HI");
     });
   }
@@ -273,6 +274,17 @@ class _SearchWidgetState extends State<SearchWidget> {
                           child: ElevatedButton(
                             onPressed: () {
                               print("Lactose Intolerent");
+                              print(Category.ProdMap);
+                              setState(() {
+                                searchdone = false;
+                                print(Category.ProdMap);
+                              });
+
+                              Search.SearchMap.clear();
+                              Search.SearchMap = HealthProducts(Health.Lactose);
+                              setState(() {
+                                searchdone = true;
+                              });
                             },
                             child: Text('Lactose Intolerent',
                                 style: GoogleFonts.poppins(

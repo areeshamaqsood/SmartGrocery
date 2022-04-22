@@ -171,7 +171,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                                 child: Image.asset(
-                                                  'assets/images/ProductTypes/${Cart.ProdCart[index][Cart.ProdCart[index].length - 1]}.png',
+                                                  'assets/images/Products/${Cart.ProdCart[index][0]}.png',
                                                   width: 74,
                                                   height: 74,
                                                   fit: BoxFit.cover,
@@ -185,7 +185,7 @@ class _CartWidgetState extends State<CartWidget> {
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    12, 0, 0, 0),
+                                                    8, 0, 0, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:

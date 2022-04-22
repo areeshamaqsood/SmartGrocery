@@ -158,7 +158,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                               print(v);
                               Cart.ProdCart.add(Category.ProdMap[v]);
                               Cart.ProdQty.add(1);
-                              // Cart.ProdID.add(v);
+                              print(Cart.ProdCart);
+                              print(Cart.ProdQty);
+                              Cart.ProdID.add(v);
+                              
                             }
                             await Navigator.push(
                               context,

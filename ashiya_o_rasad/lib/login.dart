@@ -33,8 +33,8 @@ class _LoginWidgetState extends State<LoginWidget> {
     emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     // This is just used for debugging purposes for now
-    emailAddressController.text = "test";
-    passwordController.text = "1234";
+    // emailAddressController.text = "test";
+    // passwordController.text = "1234";
     passwordVisibility = false;
   }
 

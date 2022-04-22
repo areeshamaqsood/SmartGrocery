@@ -80,7 +80,7 @@ def getAudioFile():
         elif corrected_word == 'دبروتي' or corrected_word == 'دبل روتي':
             corrected_word = 'Bread'
         elif corrected_word == 'دهي':
-            corrected_word = 'Youghurt'
+            corrected_word = 'yogurt'
         elif corrected_word == 'دود':
             corrected_word = 'Milk'
         elif corrected_word == 'إلعَيْتي' or corrected_word == 'إلعيتي' or \

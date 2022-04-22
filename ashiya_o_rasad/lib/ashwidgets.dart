@@ -76,7 +76,7 @@ class _AllProductsState extends State<AllProducts> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 7.3, 0, 0),
                               child: Image.asset(
-                                'assets/images/ProductTypes/${prod1.last}.png',
+                                'assets/images/Products/${prod1[0]}.png',
                                 width: 70,
                                 height: 70,
                                 fit: BoxFit.cover,
@@ -248,7 +248,7 @@ class _SearchProductsState extends State<SearchProducts> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 7.3, 0, 0),
                               child: Image.asset(
-                                'assets/images/ProductTypes/${prod1.last}.png',
+                                'assets/images/Products/${prod1[0]}.png',
                                 width: 56,
                                 height: 56,
                                 fit: BoxFit.cover,

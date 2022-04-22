@@ -85,11 +85,11 @@ flutter:
     - assets/images/Tea.png
     - assets/images/Products/Lipton Yellow Label.png
     - assets/images/Products/SB Super.png
-    - assets/images/Products/Surf Excel.png
+#    - assets/images/Products/Surf Excel.png
     - assets/images/Products/Dalda Canola Oil Pouch.png
     - assets/images/Products/Olpers.png
-    - assets/images/Products/Dawn.png
-    - assets/images/Products/Ariel.png
+#    - assets/images/Products/Dawn.png
+#    - assets/images/Products/Ariel.png
     - assets/images/signup.jpg
     - assets/images/categories/Fats and Oil.png
     - assets/images/ProductTypes/Ariel.png
@@ -106,6 +106,36 @@ flutter:
     - assets/images/ProductTypes/Tea.png
     - assets/images/ProductTypes/Turmeric.png
     - assets/images/ProductTypes/Wheat.png
+    - assets/images/Products/Ariel 1kg.png
+    - assets/images/Products/Ariel 500g.png
+    - assets/images/Products/Bread and Beyond Plain.png
+    - assets/images/Products/Brooke Bond.png
+    - assets/images/Products/Dalda Canola Oil Pouch.png
+    - assets/images/Products/Dawn Bran.png
+    - assets/images/Products/Dawn Multigrain.png
+    - assets/images/Products/Dawn Plain.png
+    - assets/images/Products/Dawn Whole Wheat.png
+    - assets/images/Products/Farm Fresh Golden.png
+    - assets/images/Products/Farm Fress Omega 3.png
+    - assets/images/Products/Lipton Yellow Label.png
+    - assets/images/Products/Lipton.png
+    - assets/images/Products/Mezan Green Tea.png
+    - assets/images/Products/nestle-yogurt.png
+    - assets/images/Products/Nestle.png
+    - assets/images/Products/Olpers.png
+    - assets/images/Products/Olpers_Milk.png
+    - assets/images/Products/prema-yogurt.png
+    - assets/images/Products/Prema.png
+    - assets/images/Products/SB Super 12.png
+    - assets/images/Products/SB Super 6.png
+    - assets/images/Products/SB Super.png
+    - assets/images/Products/SB_Eggs.png
+    - assets/images/Products/Surf Excel 1kg.png
+    - assets/images/Products/Surf Excel 500g.png
+    - assets/images/Products/Tapal Danedar.png
+    - assets/images/Products/Tapal Tezdum.png
+    - assets/images/Products/Vital Tea Pouch.png
+    - assets/images/Products/Dalda Sunflower Oil.png
 
   # - assets/videos/
   # - assets/audios/

@@ -199,8 +199,42 @@ Future<void> fetchproducts() async {
   // print(Category.ProdMap);
 }
 
+// Stores products according to each health issue
 class Health {
-  static List<String> Lactose = ['Dairy'];
+  static List<String> Lactose = [];
+  static List<String> Pescatarian = [];
+}
+
+// Gets a list of the Products from firebase in accordance with their health issue
+Future<void> GetHealth() async {
+  CollectionReference health = FirebaseFirestore.instance.collection('Issue');
+  // Lactose
+  health
+      .doc('Lactose')
+      .collection("lactose")
+      .get()
+      .then((QuerySnapshot querySnapshot) {
+    querySnapshot.docs.forEach((doc) {
+      print(doc["name"]);
+      Health.Lactose.add(doc["name"]);
+    });
+  });
+}
+
+// Gets a list of products that are edible to consume with respect to the Health Issue
+Map<String, List<String>> HealthProducts(List<String> Issue) {
+  Map<String, List<String>> searchresults = {};
+  List<String> typelist = Category.ProdMap.keys.toList();
+  for (var i = 0; i < typelist.length; i++) {
+    if (Issue.any((prod) => prod == typelist[i])) {
+      print("${typelist[i]} Matched");
+    } else {
+      print("Not Match");
+      searchresults[typelist[i]] = Category.ProdMap[typelist[i]];
+    }
+  }
+  print("Search = ${searchresults}");
+  return searchresults;
 }
 
 Map<int, String> prodprice() {

@@ -36,7 +36,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                     children: [
                       // Image of product
                       Image.asset(
-                        'assets/images/ProductTypes/${(Category.viewProduct[0].last)}.png',
+                        'assets/images/Products/${(Category.viewProduct[0][0])}.png',
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: MediaQuery.of(context).size.height * 0.6,
                         fit: BoxFit.contain,
