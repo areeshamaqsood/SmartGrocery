@@ -27,7 +27,7 @@ The similarity of the items being bought among all the users is calculated throu
 ![RecommenderFlow](https://user-images.githubusercontent.com/96544322/164773288-8f36b997-eaa7-4846-9aa7-fdc7755488eb.png)
 
 
-## The Rsys.py contains the algorithm which is connnected with the firebase
+## The Recomm.py contains the algorithm which is connnected with the firebase
 
 # Frontend 
 Our frontend is made on Flutter and is connected with the firebase database. The mobile application uses the android sdk.
