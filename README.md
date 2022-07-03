@@ -52,4 +52,4 @@ files from the application to the server
 |Beautiful Soup| Used for parsing URL's in our Smart Categorization feature|
 |Google Colab| To execute python code and run on big a dataset|
 |Flask| To create API's with our neural network models|
-|Python| Used for executing all three features|
+|Python| Used for executing each three major features|
