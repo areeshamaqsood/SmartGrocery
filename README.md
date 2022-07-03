@@ -53,3 +53,17 @@ files from the application to the server
 |Google Colab| To execute python code and run on big a dataset|
 |Flask| To create API's with our neural network models|
 |Python| Used for executing each three major features|
+
+## Setup and Run Application
+
+- [Setup Flutter based on your operating system](https://flutter.dev/docs/get-started/install)
+- Make sure you follow all the steps above and have an all-green output of `flutter doctor` command.
+- [Install and run Android Studio once](https://developer.android.com/studio/install)
+- (For iOS) Install XCode from AppStore
+- You can use Android Studio, [IntelliJ Idea](https://www.jetbrains.com/idea/download),
+  or [VSCode](https://code.visualstudio.com/download) for Flutter development
+- Install Flutter plugin in your chosen IDE
+- Clone this repository using `gh repo clone areeshamaqsood/SmartGrocery`
+- To run it on your `localhost` environment, you will just have to run `main.dart` file in your project. That can be
+  done directly by clicking on the play button in your IDE, or by running `flutter run` from the terminal of your project.
+  This will run the app on any device or simulator connected to your system
