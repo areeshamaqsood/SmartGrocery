@@ -14,7 +14,7 @@ Third, User can select from a list of allergies and health concerns and the prod
 # Natural Language
 It uses a pre-trained model from the Huggingface Repository 
 jonatasgrosman/wav2vec2-large-xlsr-53-arabic
-Fine tuned for Arabic language but can be used to identofy products in Urdu Langauge as well
+Fine tuned for Arabic language but can be used to identify products in Urdu Langauge as well
 
 This model is deployed on a Python Flask server which is connected with the Flutter application
 
