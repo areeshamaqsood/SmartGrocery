@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df7b814b-6cd2-4849-af71-b31881e18fa3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ashiya_o_rasad/lib/API.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ASR.py" beforeDir="false" afterPath="$PROJECT_DIR$/ASR.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recomm.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recomm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ashiya_o_rasad/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ashiya_o_rasad/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ashiya_o_rasad/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ashiya_o_rasad/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ashiya_o_rasad/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ashiya_o_rasad/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ashiya_o_rasad/lib/ashwidgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/ashiya_o_rasad/lib/ashwidgets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ashiya_o_rasad/lib/cart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/ashiya_o_rasad/lib/cart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ashiya_o_rasad/lib/products/product_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/ashiya_o_rasad/lib/products/product_details.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/audio.wav" beforeDir="false" afterPath="$PROJECT_DIR$/audio.wav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

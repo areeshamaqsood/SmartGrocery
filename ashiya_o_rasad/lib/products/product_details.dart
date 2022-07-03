@@ -94,7 +94,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                             child: Text(
                               Category.viewProduct[0][1],
                               style: GoogleFonts.poppins(
-                                fontSize: 20.0,
+                                fontSize: 19.0,
                                 color: Color(0xFF28B446),
                                 fontWeight: FontWeight.w600,
                               ),

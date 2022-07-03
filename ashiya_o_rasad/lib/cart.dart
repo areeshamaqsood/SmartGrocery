@@ -197,7 +197,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                 Text(
                                                   Cart.ProdCart[index][0],
                                                   style: GoogleFonts.poppins(
-                                                    fontSize: 18.0,
+                                                    fontSize: 15.0,
                                                     color: Color(0xFF111417),
                                                     fontWeight: FontWeight.w500,
                                                   ),

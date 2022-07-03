@@ -78,7 +78,7 @@ class _AllProductsState extends State<AllProducts> {
                               child: Image.asset(
                                 'assets/images/Products/${prod1[0]}.png',
                                 width: 70,
-                                height: 70,
+                                height: 53,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -165,7 +165,7 @@ class _AllProductsState extends State<AllProducts> {
                         size: 17,
                       ),
                       style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(181, 40),
+                          fixedSize: const Size(160, 20),
                           primary: Color(0xFF28b446)),
                     ),
                   ],
