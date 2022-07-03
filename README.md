@@ -54,7 +54,7 @@ files from the application to the server
 |Flask| To create API's with our neural network models|
 |Python| Used for executing each three major features|
 
-## Setup and Run Application
+# Setup and Run Application
 
 - [Setup Flutter based on your operating system](https://flutter.dev/docs/get-started/install)
 - Make sure you follow all the steps above and have an all-green output of `flutter doctor` command.
