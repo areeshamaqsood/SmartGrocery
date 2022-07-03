@@ -42,3 +42,14 @@ Our frontend is made on Flutter and is connected with the firebase database. The
 # Firebase and Firebase storage
 Firebase is used as a database for this project whereas FireStorage is used to upload audio
 files from the application to the server
+
+
+# Tools Used
+| Title | Overview |
+|---|---|
+|Flutter| Used for Mobile Development |
+|Firebase| Used for cloud storage database |
+|Beautiful Soup| Used for parsing URL's in our Smart Categorization feature|
+|Google Colab| To execute python code and run on big a dataset|
+|Flask| To create API's with our neural network models|
+|Python| Used for executing all three features|
