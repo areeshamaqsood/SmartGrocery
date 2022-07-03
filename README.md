@@ -14,7 +14,7 @@ Third, User can select from a list of allergies and health concerns and the prod
 # Natural Language
 It uses a pre-trained model from the Huggingface Repository 
 jonatasgrosman/wav2vec2-large-xlsr-53-arabic
-Fine tuned for Arabic language but can be used to identify products in Urdu Langauge as well
+Fine tuned for Arabic language but can be used to identofy products in Urdu Langauge as well
 
 This model is deployed on a Python Flask server which is connected with the Flutter application
 
@@ -26,8 +26,15 @@ The similarity of the items being bought among all the users is calculated throu
 
 ![RecommenderFlow](https://user-images.githubusercontent.com/96544322/164773288-8f36b997-eaa7-4846-9aa7-fdc7755488eb.png)
 
-
 ## The Recomm.py contains the algorithm which is connnected with the firebase
+
+# Smart Categorization
+Our users will be able pin down their health concerns and the products displayed will be marked edibally safe or unsafe. What we did for this was extracting ingredients from a specific list of websites that may or may not contain the product mentioned and store the textual data automatically onto a spreadsheet. First we needed to find out which website contained the ingredient list for specific products. We did this by using the googlesearch library on Python, the process yielded each product URL's which contained ingredients and was stored on the spreadsheet.
+Next, we performed web scraping on these URLs to extract the ingredients. We did this by using the BeautifulSoup library by Python. It's important for each Product and the site it was taken from, we created different scripts depending on which specific website is being scraped for ingredients. The ingredients for each product were stored automatically onto the spreadsheet. For this as per each health issue we created a list of indicator products, if a product ingredient contained an indicator product that means it would contain potential allergens and would be labeled as that health issue product.
+After that, the next process was trying to find out what product should be marked edibally safe or unsafe. 
+Finally, the data was then stored on Firebase.
+
+![FYP Eval](https://user-images.githubusercontent.com/56261790/177050740-b8630ee8-1323-4d7f-a500-8bc9837a2f87.png)
 
 # Frontend 
 Our frontend is made on Flutter and is connected with the firebase database. The mobile application uses the android sdk.
